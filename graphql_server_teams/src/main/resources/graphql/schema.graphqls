@@ -1,0 +1,30 @@
+type Player {
+    id: Int!
+    name: String!
+    teamId: Int!
+}
+
+type Team {
+    id: Int!
+    name: String!
+    players: [Player]
+}
+
+type Query {
+    getPlayers: [Player]
+    getTeams: [Team]
+    getTeam(id: Int!): Team
+    getPlayer(id: Int!): Player
+#    getPlayersByTeam(id: Int!): [Player]
+
+}
+
+type Mutation{
+    savePlayer(player: PlayerInput): Player
+}
+
+input PlayerInput{
+    id: Int!
+    name: String!
+    teamId: Int!
+}

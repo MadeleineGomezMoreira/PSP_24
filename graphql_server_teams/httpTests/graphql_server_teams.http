@@ -1,0 +1,79 @@
+# reymortiz_ejercicio1
+
+###
+@urlbase = http://localhost:8082/
+# @name getTeamsWithName
+GRAPHQL {{urlbase}}graphql
+
+query GetTeams{
+    getTeams{
+        name
+    }
+}
+
+###
+# @name getTeamsWithPlayers
+GRAPHQL {{urlbase}}graphql
+
+query GetEquipos{
+    getTeams{
+        id
+        name
+        players{
+            id
+            name
+        }
+    }
+}
+
+###
+# @name getTeamExists
+GRAPHQL {{urlbase}}graphql
+
+query GetEquipo($id : Int!){
+    getTeam(id : $id){
+        name
+        players{
+            id
+            name
+        }
+    }
+}
+
+{
+  "id": 1
+}
+
+###
+# @name getTeamDoesntExist
+GRAPHQL {{urlbase}}graphql
+
+query GetEquipo($id : Int!){
+    getTeam(id : $id){
+        name
+    }
+}
+
+{
+  "id": 6
+}
+
+###
+# @name addPlayer
+GRAPHQL {{urlbase}}graphql
+
+mutation savePlayer($player: PlayerInput!){
+    savePlayer(player : $player){
+        id
+        name
+        teamId
+    }
+}
+
+{
+  "player": {
+    "id": 204,
+    "name": "Iñigo Martinez",
+    "teamId": 2
+  }
+}
