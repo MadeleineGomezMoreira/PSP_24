@@ -5,9 +5,12 @@ import com.teams.graphql_server_teams.data.model.Player;
 import com.teams.graphql_server_teams.data.repositories.PlayerRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 @Component
 public class PlayerRepositoryImpl implements PlayerRepository {
+
+    private final List<Player> mutablePlayerList = new ArrayList<>(StaticLists.playerList);
 
     @Override
     public List<Player> getAll() {
@@ -33,5 +36,4 @@ public class PlayerRepositoryImpl implements PlayerRepository {
 
         return player;
     }
-
 }

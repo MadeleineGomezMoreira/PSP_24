@@ -9,8 +9,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ErrorHandlingGraphql extends DataFetcherExceptionResolverAdapter {
+
     @Override
     protected GraphQLError resolveToSingleError(Throwable ex, DataFetchingEnvironment env) {
+        if(ex.getMessage() == null){
+            return GraphqlErrorBuilder.newError()
+                .errorType(ErrorType.INTERNAL_ERROR)
+                .message("Internal error")
+                .path(env.getExecutionStepInfo().getPath())
+                .location(env.getField().getSourceLocation())
+                .build();
+        }
         if (ex.getMessage().contains("not found")){
             return GraphqlErrorBuilder.newError()
                 .errorType(ErrorType.NOT_FOUND)

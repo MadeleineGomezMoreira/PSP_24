@@ -33,6 +33,8 @@ public class PlayerController {
         return service.getPlayer(id);
     }
 
+
+    //TODO: fix --> PlayerInput is retrieved with null name and teamId/id = 0 --> WHY?
     @MutationMapping
     public Player savePlayer(@Argument PlayerInput player) {
         return service.savePlayer(player);

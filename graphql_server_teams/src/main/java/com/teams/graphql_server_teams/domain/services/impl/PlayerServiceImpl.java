@@ -18,9 +18,9 @@ public class PlayerServiceImpl implements com.teams.graphql_server_teams.domain.
     private final PlayerMapper mapper;
 
     @Override
-    public Player getPlayer(int id){
+    public Player getPlayer(int id) {
         Player player = repository.getById(id);
-        if(player == null){
+        if (player == null) {
             throw new NotFoundException("Player not found");
         } else {
             return player;
@@ -28,18 +28,28 @@ public class PlayerServiceImpl implements com.teams.graphql_server_teams.domain.
     }
 
     @Override
-    public List<Player> getPlayers(){
+    public List<Player> getPlayers() {
         return repository.getAll();
     }
 
     @Override
-    public List<Player> getPlayersByTeam(int id){
+    public List<Player> getPlayersByTeam(int id) {
         return repository.getAllByTeam(id);
     }
 
     @Override
-    public Player savePlayer(PlayerInput player){
-        return repository.save(mapper.toPlayer(player));
+    public Player savePlayer(PlayerInput player) {
+        return repository.save(new Player(
+                player.getId(),
+                player.getName(),
+                player.getTeamId()
+        ));
     }
+
+    //The mapper (mapstruct) does not work
+//    @Override
+//    public Player savePlayer(PlayerInput player) {
+//        return repository.save(mapper.toPlayer(player));
+//    }
 
 }
