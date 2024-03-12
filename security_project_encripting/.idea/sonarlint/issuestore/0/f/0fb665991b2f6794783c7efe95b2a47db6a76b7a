@@ -1,0 +1,9 @@
+
+Z
+java:S18542"8Remove this useless assignment to local variable "data".(ÀÒò­ùÿÿÿÿ8±ñ·¤ã1
+>
+java:S5542#"Use a secure padding scheme.(»¦µªúÿÿÿÿ8²ñ·¤ã1
+K
+java:S14812")Remove this unused "data" local variable.(ÀÒò­ùÿÿÿÿ8³ñ·¤ã1
+[
+java:S4719W"9Replace charset name argument with StandardCharsets.UTF_8(½µÙûÿÿÿÿÿ8µñ·¤ã1
