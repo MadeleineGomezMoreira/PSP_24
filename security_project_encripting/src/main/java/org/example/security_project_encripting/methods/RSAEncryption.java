@@ -1,4 +1,4 @@
-package org.example.security_project_encripting;
+package org.example.security_project_encripting.methods;
 
 import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
@@ -22,6 +22,9 @@ import java.util.Base64;
 
 @Log4j2
 public class RSAEncryption {
+
+    //TODO: primero generar clave publica y privada ( guardar en un keystore )
+    //en rsa se suelen encriptar claves que luego se usan de manera simétrica
 
     //name = "nombre"
     //strToCipher = "123456"

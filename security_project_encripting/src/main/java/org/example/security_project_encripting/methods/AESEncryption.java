@@ -1,4 +1,4 @@
-package org.example.security_project_encripting;
+package org.example.security_project_encripting.methods;
 
 import com.google.common.primitives.Bytes;
 import io.vavr.control.Either;

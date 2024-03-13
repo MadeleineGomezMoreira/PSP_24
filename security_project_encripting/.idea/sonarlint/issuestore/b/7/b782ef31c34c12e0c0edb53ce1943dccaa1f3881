@@ -1,31 +1,0 @@
-
-v
-java:S1192""YDefine a constant instead of duplicating this literal "Error while ciphering: " 14 times.(Í¡Ùè8¯í¢ã1
-^
-java:S1854"<Remove this useless assignment to local variable "cifrador".(—×«øÿÿÿÿ8œ¨–¢ã1
-`
-java:S1854#"CRemove this useless assignment to local variable "operationResult".(Ó€²Â8ğõ¢ã1
-`
-java:S1854&"CRemove this useless assignment to local variable "operationResult".(Ó€²Â8´í¢ã1
-`
-java:S1854)"CRemove this useless assignment to local variable "operationResult".(Ó€²Â8¿®’¢ã1
-`
-java:S1854,"CRemove this useless assignment to local variable "operationResult".(Ó€²Â8¿®’¢ã1
-`
-java:S1854/"CRemove this useless assignment to local variable "operationResult".(Ó€²Â8¿®’¢ã1
-`
-java:S18542"CRemove this useless assignment to local variable "operationResult".(Ó€²Â8¿®’¢ã1
-`
-java:S18545"CRemove this useless assignment to local variable "operationResult".(Ó€²Â8À®’¢ã1
-c
-java:S1854"ARemove this useless assignment to local variable "keyFactoryRSA".(°‡â„ùÿÿÿÿ8³³ ¢ã1
-H
-java:S1172"+Remove this unused method parameter "name".(”¼±8¬™¢ã1
-Q
-java:S1481"4Remove this unused "operationResult" local variable.(üùä«8­™¢ã1
->
-java:S5542"Use a secure padding scheme.(—×«øÿÿÿÿ8¨–¢ã1
-O
-java:S1481"-Remove this unused "cifrador" local variable.(—×«øÿÿÿÿ8Ÿ¨–¢ã1
-T
-java:S1481"2Remove this unused "keyFactoryRSA" local variable.(°‡â„ùÿÿÿÿ8·³ ¢ã1
