@@ -11,3 +11,8 @@ Psrc/main/java/org/example/security_project_encripting/methods/AESEncryption.jav
 Usrc/main/java/org/example/security_project_encripting/methods/InitializeKeyStore.java,d\8\d87f8f314cbeeabcf63242394f0ab833404b841b
 †
 Vsrc/main/java/org/example/security_project_encripting/methods/RSAStringEncryption.java,9\6\9655f5665df66de35b76db5318ef79112be5587c
+„
+Tsrc/main/java/org/example/security_project_encripting/methods/RSAFileEncryption.java,a\8\a8fb124eed496c2c8dc825a3eecaaf609ac5341d
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
