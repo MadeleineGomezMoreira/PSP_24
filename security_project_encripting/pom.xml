@@ -45,6 +45,18 @@
             <artifactId>vavr</artifactId>
             <version>0.10.4</version>
         </dependency>
+        <!-- BOUNCY-CASTLE-ENCRYPTION -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk18on</artifactId>
+            <version>1.77</version>
+        </dependency>
+        <!-- BOUNCY-CASTLE-PUBLIC-KEY-INFRASTRUCTURE -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk18on</artifactId>
+            <version>1.77</version>
+        </dependency>
     </dependencies>
 
 </project>
