@@ -15,6 +15,8 @@ module fbi_protected_reports_project {
     requires io.reactivex.rxjava3;
     requires org.pdfsam.rxjavafx;
     requires java.logging;
+    requires com.google.common;
+    requires jakarta.jakartaee.web.api;
 
     exports ui.fx.main to javafx.graphics;
     exports ui.security;
@@ -22,6 +24,9 @@ module fbi_protected_reports_project {
     exports ui.fx.screens.principal;
     exports ui.fx.screens.login;
     exports ui.fx.screens.welcome;
+    exports domain.error;
+    exports domain.model;
+
 
     opens ui.security;
     opens ui.fx.screens.principal;
@@ -29,6 +34,8 @@ module fbi_protected_reports_project {
     opens ui.fx.screens.welcome;
     opens ui.fx.screens.common;
     opens ui.fx.main;
+    opens domain.error;
+    opens domain.model;
 
 
 }
