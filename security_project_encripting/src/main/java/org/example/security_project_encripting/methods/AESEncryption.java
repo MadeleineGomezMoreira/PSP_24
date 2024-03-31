@@ -20,6 +20,9 @@ import java.util.Base64;
 @Log4j2
 public class AESEncryption {
 
+    //con esto cifro el informe
+    //el secret debe ser la clave pública del administrador
+
     //A type of symmetric key encryption
     //mode: GCM (Galois/Counter Mode)
     //padding: noPadding

@@ -1,15 +1,12 @@
 
-g	java:S112>"FDefine and throw a dedicated exception instead of using a generic one.(»ÃÑ³øÿÿÿÿ8ÃœŠæä1
-g	java:S112^"FDefine and throw a dedicated exception instead of using a generic one.(»ÃÑ³øÿÿÿÿ8ÃœŠæä1
-g	java:S112f"FDefine and throw a dedicated exception instead of using a generic one.(ÌÉĞúÿÿÿÿ8ÃœŠæä1
-g	java:S112s"FDefine and throw a dedicated exception instead of using a generic one.(¢Çˆûÿÿÿÿ8ÃœŠæä1
-c	java:S112¢"FDefine and throw a dedicated exception instead of using a generic one.(¶ÅğÖ8ÃœŠæä1
+g	java:S112A"FDefine and throw a dedicated exception instead of using a generic one.(»ÃÑ³øÿÿÿÿ8ÃœŠæä1
+g	java:S112u"FDefine and throw a dedicated exception instead of using a generic one.(¢Çˆûÿÿÿÿ8ÃœŠæä1
 
-java:S1488š"cImmediately return this expression instead of assigning it to the temporary variable "certificate".(Ãê€õ8ÄœŠæä1
+java:S1488œ"cImmediately return this expression instead of assigning it to the temporary variable "certificate".(Ãê€õ8ÄœŠæä1
 Z
-java:S18540"8Remove this useless assignment to local variable "kyst".(±›Ë§ıÿÿÿÿ8ÖœŠæä1
+java:S18543"8Remove this useless assignment to local variable "kyst".(±›Ë§ıÿÿÿÿ8ÖœŠæä1
 O
-java:S1135"2Complete the task associated to this TODO comment.(¿Áâ8ÖœŠæä1
+java:S1135"2Complete the task associated to this TODO comment.(¿Áâ8ÖœŠæä1
 K
-java:S14810")Remove this unused "kyst" local variable.(±›Ë§ıÿÿÿÿ8ÚœŠæä1
-L	java:S1063"+Replace this use of System.out by a logger.(’“¨²ùÿÿÿÿ8ÚœŠæä1
+java:S14813")Remove this unused "kyst" local variable.(±›Ë§ıÿÿÿÿ8ÚœŠæä1
+L	java:S1066"+Replace this use of System.out by a logger.(’“¨²ùÿÿÿÿ8ÚœŠæä1

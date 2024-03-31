@@ -6,14 +6,12 @@ import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.*;
@@ -22,78 +20,19 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Base64;
 import java.util.Date;
 
-public class InitializeKeyStore {
+public class SaveUserKeys {
 
-    //TODO: keep going! You are doing so great honey! <3
+    //TODO: do something about the random salt (?)
+    // maybe I should already receive the hashed password here (Salt should be stored along with the hashed password in the db maybe?)
 
-    public static void main(String[] args) { //KEYSTORE INITIALIZED!
-        //we add the bouncyCastleProvider to our java security settings
-        Security.addProvider(new BouncyCastleProvider());
-
-        String fileName = "keystore.pfx";
-        String aliasPublic = "public";
-        String aliasPrivate = "private";
-        String passwordString = "12345"; //this password should be the admin's password
-
-        try {
-            KeyPair keyPair = generateRandomKeyPair();
-
-            X509Certificate certificate = generateCertificate(keyPair);
-            String hashedPassword = hashPassword(passwordString);
-            char[] password = hashedPassword.toCharArray();
-            PrivateKey privateKey = keyPair.getPrivate();
-
-            createKeyStoreFileWithEntry(fileName, aliasPublic, aliasPrivate, privateKey, certificate, password);
-
-            //now I can load my keyStore and use it
-            KeyStore kyst = loadKeyStore(fileName, password);
-
-        } catch (Exception e) {
-            System.out.println("There was an error: " + e);
-        }
-    }
-
-    private static void createKeyStoreFileWithEntry(
-            String fileName, //the name should have the '.pfx' file-extension, as this indicates it is a PKCS12 keystore
-            String aliasPublic,
-            String aliasPrivate,
-            PrivateKey privateKey,
-            Certificate certificate,
-            char[] password
-    ) throws Exception {
-
-        //I create a new instance of KeyStore using the standard PKCS12 format
-        KeyStore kyst = KeyStore.getInstance("PKCS12");
-
-        //with this, I initialize the keystore with contents
-        kyst.load(null, null);
-
-        //I add a certificate entry to the keystore (aliasPublic serves as a unique identifier for this entry whenever I want to access it)
-        kyst.setCertificateEntry(aliasPublic, certificate);
-
-        //now I add a key entry (private key + password + associated certificate)
-        //'aliasPrivate' serves as a unique identifier for this entry
-        //the password protects the private key entry
-        kyst.setKeyEntry(aliasPrivate, privateKey, password, new Certificate[]{certificate});
-
-        //now we shall save our KeyStore to File format in our project using FileOutputStream
-        FileOutputStream fos = new FileOutputStream(fileName);
-
-        //we store the contents of the keystore (along with its entries) to the output stream
-        //we also associate the KeyStore with a password that will protect it
-        kyst.store(fos, password);
-
-        //we finally close the output stream
-        fos.close();
-
-        //Done!
-    }
-
-    private static KeyStore loadKeyStore(
+    //LOAD KEYSTORE
+    private KeyStore loadKeyStore(
             String fileName,
             char[] password
+            //admin's password
     ) throws KeyStoreException, IOException, CertificateException, NoSuchAlgorithmException {
 
         KeyStore kyst = KeyStore.getInstance("PKCS12");
@@ -102,7 +41,47 @@ public class InitializeKeyStore {
 
     }
 
-    private static KeyPair generateRandomKeyPair() throws NoSuchAlgorithmException {
+    //SAVE USER PRIVATE KEY + CERT TO KEYSTORE
+    public void saveUserToKeyStore(String keyStoreFileName, String userPass, String userName, String serverPass) throws Exception {
+        String aliasPublic = "public";
+        String aliasPrivate = "private";
+        char[] adminPassHashed = hashPassword(serverPass);
+        char[] userPassHashed = hashPassword(userPass);
+
+        KeyStore keyStore = loadKeyStore(keyStoreFileName, adminPassHashed);
+
+        KeyPair keyPair = generateRandomKeyPair();
+
+        //We generate the certificate
+        Certificate certificate = generateCertificate(keyPair, userName);
+
+        //we generate the private key
+        PrivateKey privateKey = keyPair.getPrivate();
+
+        //we store both into the keyStore
+        keyStore.setCertificateEntry(aliasPublic, certificate);
+        keyStore.setKeyEntry(aliasPrivate, privateKey, userPassHashed, new Certificate[]{certificate});
+
+    }
+
+    //GET SERVER PRIVATE KEY
+    //The user's public key certificate must be done utilizing the server's private key
+    private PrivateKey getServerPrivateKey(String keystoreFileName, char[] adminPassword, String adminPublicKeyAlias) throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+        // Load the keystore
+        KeyStore keyStore = loadKeyStore(keystoreFileName, adminPassword);
+
+        // Get the server's private key
+        PrivateKey privateKey = (PrivateKey) keyStore.getKey(adminPublicKeyAlias, adminPassword);
+        if (privateKey == null) {
+            //TODO: throw a dedicated exception
+            //throw new Exception("Server's private key not found in the keystore.");
+        }
+
+        return privateKey;
+    }
+
+    //GENERATE KEYPAIR
+    private KeyPair generateRandomKeyPair() throws NoSuchAlgorithmException {
 
         //we create a new instance of the KeyPairGenerator using RSA algorithm
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -114,16 +93,23 @@ public class InitializeKeyStore {
         return keyPairGenerator.generateKeyPair();
     }
 
-    private static X509Certificate generateCertificate(KeyPair keyPair) throws Exception {
+    //GENERATE CERTIFICATE
+    private X509Certificate generateCertificate(KeyPair keyPair, String userName) throws Exception {
+
+        String keyStoreFileName = "keystore.pfx";
+        String password = "12345";
+        char[] adminPassword = hashPassword(password);
+        String adminPublicKeyAlias = "Made";
+
 
         //we extract each key from the keyPair
-        PrivateKey privateKey = keyPair.getPrivate();
+        PrivateKey privateKey = getServerPrivateKey(keyStoreFileName, adminPassword, adminPublicKeyAlias);
         PublicKey publicKey = keyPair.getPublic();
 
         //WE SET THE KEY PARAMETERS
 
         //we create a name for the certificate owner and issuer
-        X500Name owner = new X500Name("CN=Made");
+        X500Name owner = new X500Name("CN=" + userName);
         X500Name issuer = new X500Name("CN=Project");
 
         //we set the certificate's serial number
@@ -159,31 +145,30 @@ public class InitializeKeyStore {
         return certificate;
     }
 
-    //KEYSTORE PASSWORD
-
-    private static String hashPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-
-        //first we define the PBKDF2 parameters
+    //GENERATE KEYSTORE PASSWORD
+    //String password = "12345";
+    private char[] hashPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        // First we must define the PBKDF2 parameters
         int iterations = 10000;
-        int length = 256; //this is length in bits
+        int length = 256; // This is length in bits
         byte[] salt = generateRandomSalt();
 
-        //now we hash the password using PBKDF2 with HMAC SHA-256
-
+        // Now we hash the password using PBKDF2 with HMAC SHA-256
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         KeySpec keySettings = new PBEKeySpec(password.toCharArray(), salt, iterations, length);
-        byte[] hash = factory.generateSecret(keySettings).getEncoded();
+        byte[] hashBytes = factory.generateSecret(keySettings).getEncoded();
 
-        return bytesToHexadecimalString(hash);
+        // We then convert the byte array into a char array using Base64 encoding
+        return Base64.getEncoder().encodeToString(hashBytes).toCharArray();
     }
 
-    private static byte[] generateRandomSalt() {
+    private byte[] generateRandomSalt() {
         byte[] salt = new byte[16];
         new SecureRandom().nextBytes(salt);
         return salt;
     }
 
-    private static String bytesToHexadecimalString(byte[] bytes) {
+    private String bytesToHexadecimalString(byte[] bytes) {
         //here we will convert an array of bytes into a hexadecimal string
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -192,5 +177,6 @@ public class InitializeKeyStore {
         }
         return stringBuilder.toString();
     }
+
 
 }

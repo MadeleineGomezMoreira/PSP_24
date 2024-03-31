@@ -21,9 +21,9 @@ import java.util.Base64;
 public class RSAStringEncryption {
 
     //en rsa se suelen encriptar claves que luego se usan de manera simétrica
+    //con esto encripto las clave con la que se ha cifrado el informe (para dar acceso a este)
 
-    //name = "nombre"
-    //strToCipher = "123456"
+    //name es el nombre de la clave pública de la persona a quien quiero dar acceso
 
     public Either<AppError, String> encrypt(String name, String strToEncrypt) {
         Either<AppError, String> operationResult;
@@ -130,7 +130,7 @@ public class RSAStringEncryption {
 
             //2 --> retrieve private key from codified data (X509 format)
 
-            //we create an instance of a class that will build a public key from its encoded X509 format
+            //we create an instance of a class that will build a private key from its encoded X509 format
             //its constructor takes a byte array which contains the encoded private key ('bufferPriv2')
             X509EncodedKeySpec privateKeySpecs = new X509EncodedKeySpec(bufferPriv2);
 

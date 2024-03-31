@@ -1,0 +1,12 @@
+
+g	java:S112a"FDefine and throw a dedicated exception instead of using a generic one.(çƒÖÓûÿÿÿÿ8ö‡’§é1
+
+java:S1488"cImmediately return this expression instead of assigning it to the temporary variable "certificate".(Ãê€õ8ø‡’§é1
+T
+java:S1135"2Complete the task associated to this TODO comment.(ÄŒ‰Õüÿÿÿÿ8·ß™§é1
+X	java:S125M"<This block of commented-out lines of code should be removed.(Õ–›¥8¡ˆ’§é1
+T
+java:S1135L"2Complete the task associated to this TODO comment.(ÄóŸüÿÿÿÿ8¡ˆ’§é1
+^	java:S125•"<This block of commented-out lines of code should be removed.(òíœñøÿÿÿÿ8®ˆ’§é1
+[
+java:S1144«"=Remove this unused private "bytesToHexadecimalString" method.(ĞîÜ«8²ˆ’§é1
