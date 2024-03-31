@@ -1,0 +1,18 @@
+
+`	java:S112+"FDefine and throw a dedicated exception instead of using a generic one.(Í×İŒÿÿÿÿÿ
+z
+java:S1488–"cImmediately return this expression instead of assigning it to the temporary variable "certificate".(Ãê€õ
+s
+java:S1488®"\Immediately return this expression instead of assigning it to the temporary variable "salt".(£óã
+]
+java:S18548"HRemove this useless assignment to local variable "userPassHashedString".(ÍĞÃ
+_
+java:S18547"IRemove this useless assignment to local variable "adminPassHashedString".(–¼¹¤
+H
+java:S11352"2Complete the task associated to this TODO comment.(ğ‰è
+P
+java:S14817":Remove this unused "adminPassHashedString" local variable.(–¼¹¤
+N
+java:S14818"9Remove this unused "userPassHashedString" local variable.(ÍĞÃ
+H
+java:S1135:"2Complete the task associated to this TODO comment.(•ĞùÆ

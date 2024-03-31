@@ -1,10 +1,18 @@
 
-y
-java:S1488y"cImmediately return this expression instead of assigning it to the temporary variable "certificate".(Ãê€õ
-S
-java:S18542"8Remove this useless assignment to local variable "kyst".(±›Ë§ıÿÿÿÿ
-D
-java:S14812")Remove this unused "kyst" local variable.(±›Ë§ıÿÿÿÿ
-E	java:S1065"+Replace this use of System.out by a logger.(’“¨²ùÿÿÿÿ
-\
-java:S1128":Remove this unused import 'java.io.FileNotFoundException'.(·î™ùÿÿÿÿ8õ¹Ø—å1
+g	java:S112C"FDefine and throw a dedicated exception instead of using a generic one.(»ÃÑ³øÿÿÿÿ8¨ú´é1
+g	java:S112w"FDefine and throw a dedicated exception instead of using a generic one.(¯¨‘Õıÿÿÿÿ8¨ú´é1
+
+java:S1488"cImmediately return this expression instead of assigning it to the temporary variable "certificate".(Ãê€õ8©ú´é1
+z
+java:S1488·"\Immediately return this expression instead of assigning it to the temporary variable "salt".(£óã8©ú´é1
+…
+java:S1488Ä"bImmediately return this expression instead of assigning it to the temporary variable "saltString".(¨ŸšĞúÿÿÿÿ8©ú´é1
+Z
+java:S18545"8Remove this useless assignment to local variable "kyst".(±›Ë§ıÿÿÿÿ8¹ú´é1
+]	java:S125""<This block of commented-out lines of code should be removed.(½ÔŒ”ÿÿÿÿÿ8»ú´é1
+O
+java:S1135)"2Complete the task associated to this TODO comment.(æ¸ûğ8¼ú´é1
+K
+java:S14815")Remove this unused "kyst" local variable.(±›Ë§ıÿÿÿÿ8½ú´é1
+L	java:S1068"+Replace this use of System.out by a logger.(’“¨²ùÿÿÿÿ8¾ú´é1
+^	java:S125»"<This block of commented-out lines of code should be removed.(¬óäƒøÿÿÿÿ8Èú´é1

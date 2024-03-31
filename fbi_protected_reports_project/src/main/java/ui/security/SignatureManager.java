@@ -6,6 +6,8 @@ import java.util.Base64;
 
 public class SignatureManager {
 
+    //this signature is also stored along with the encrypted report (which is signed before encryption)
+
     //generate a digital signature for the report content
     public String signReport(String reportContent, PrivateKey privateKey) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         Signature signature = Signature.getInstance("SHA256withRSA");

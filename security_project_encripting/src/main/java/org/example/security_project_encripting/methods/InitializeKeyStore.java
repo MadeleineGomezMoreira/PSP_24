@@ -22,27 +22,29 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Base64;
 import java.util.Date;
 
 public class InitializeKeyStore {
 
-    //TODO: keep going! You are doing so great honey! <3
-
-    public static void main(String[] args) { //KEYSTORE INITIALIZED!
+    public void initializeKeyStore(String adminPasswordString, String salt, String fileName) { //KEYSTORE INITIALIZED ALREADY!
         //we add the bouncyCastleProvider to our java security settings
         Security.addProvider(new BouncyCastleProvider());
 
-        String fileName = "keystore.pfx";
+        fileName = "keystore.pfx";
         String aliasPublic = "public";
         String aliasPrivate = "private";
-        String passwordString = "12345"; //this password should be the admin's password
+        adminPasswordString = "12345"; //this password should be the admin's password
+        salt = generateRandomSalt();
+
+        //we use an external method to save both the encoded salt and the hashed password into the DB
+        //TODO: save into DB
 
         try {
             KeyPair keyPair = generateRandomKeyPair();
 
             X509Certificate certificate = generateCertificate(keyPair);
-            String hashedPassword = hashPassword(passwordString);
-            char[] password = hashedPassword.toCharArray();
+            char[] password = hashPassword(adminPasswordString, salt);
             PrivateKey privateKey = keyPair.getPrivate();
 
             createKeyStoreFileWithEntry(fileName, aliasPublic, aliasPrivate, privateKey, certificate, password);
@@ -55,7 +57,7 @@ public class InitializeKeyStore {
         }
     }
 
-    private static void createKeyStoreFileWithEntry(
+    private void createKeyStoreFileWithEntry(
             String fileName, //the name should have the '.pfx' file-extension, as this indicates it is a PKCS12 keystore
             String aliasPublic,
             String aliasPrivate,
@@ -91,7 +93,7 @@ public class InitializeKeyStore {
         //Done!
     }
 
-    private static KeyStore loadKeyStore(
+    private KeyStore loadKeyStore(
             String fileName,
             char[] password
     ) throws KeyStoreException, IOException, CertificateException, NoSuchAlgorithmException {
@@ -102,7 +104,7 @@ public class InitializeKeyStore {
 
     }
 
-    private static KeyPair generateRandomKeyPair() throws NoSuchAlgorithmException {
+    private KeyPair generateRandomKeyPair() throws NoSuchAlgorithmException {
 
         //we create a new instance of the KeyPairGenerator using RSA algorithm
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -114,7 +116,7 @@ public class InitializeKeyStore {
         return keyPairGenerator.generateKeyPair();
     }
 
-    private static X509Certificate generateCertificate(KeyPair keyPair) throws Exception {
+    private X509Certificate generateCertificate(KeyPair keyPair) throws Exception {
 
         //we extract each key from the keyPair
         PrivateKey privateKey = keyPair.getPrivate();
@@ -161,36 +163,38 @@ public class InitializeKeyStore {
 
     //KEYSTORE PASSWORD
 
-    private static String hashPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-
-        //first we define the PBKDF2 parameters
+    private char[] hashPassword(String password, String saltString) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        // First we must define the PBKDF2 parameters
         int iterations = 10000;
-        int length = 256; //this is length in bits
-        byte[] salt = generateRandomSalt();
+        int length = 256; // This is length in bits
+        byte[] salt = stringSaltToByteArray(saltString);
 
-        //now we hash the password using PBKDF2 with HMAC SHA-256
-
+        // Now we hash the password using PBKDF2 with HMAC SHA-256
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         KeySpec keySettings = new PBEKeySpec(password.toCharArray(), salt, iterations, length);
-        byte[] hash = factory.generateSecret(keySettings).getEncoded();
+        byte[] hashBytes = factory.generateSecret(keySettings).getEncoded();
 
-        return bytesToHexadecimalString(hash);
+        // We then convert the byte array into a char array using Base64 encoding
+        return Base64.getEncoder().encodeToString(hashBytes).toCharArray();
     }
 
-    private static byte[] generateRandomSalt() {
-        byte[] salt = new byte[16];
-        new SecureRandom().nextBytes(salt);
+    private byte[] stringSaltToByteArray(String saltString) {
+        // Decode the salt string back to its original byte array form
+        byte[] salt = Base64.getDecoder().decode(saltString);
         return salt;
     }
 
-    private static String bytesToHexadecimalString(byte[] bytes) {
-        //here we will convert an array of bytes into a hexadecimal string
-        StringBuilder stringBuilder = new StringBuilder();
+//    private static byte[] generateRandomSalt() {
+//        byte[] salt = new byte[16];
+//        new SecureRandom().nextBytes(salt);
+//        return salt;
+//    }
 
-        for (byte b : bytes) {
-            stringBuilder.append(String.format("%02x", b));
-        }
-        return stringBuilder.toString();
+    private String generateRandomSalt() {
+        byte[] salt = new byte[16];
+        new SecureRandom().nextBytes(salt);
+        String saltString = Base64.getEncoder().encodeToString(salt);
+        return saltString;
     }
 
 }

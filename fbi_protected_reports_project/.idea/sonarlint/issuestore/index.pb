@@ -1,8 +1,6 @@
 
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-a
-1src/main/java/ui/security/InitializeKeyStore.java,b\d\bd0decbc8fb7a813858ff9173e453f034345fe02
 N
 src/main/java/module-info.java,1\c\1c89a5491fbfda3fb050196d6a239f20200296e7
 V
@@ -25,14 +23,8 @@ e
 5src/main/java/ui/fx/screens/common/ScreensThings.java,6\2\6286333c873a994cb459753779e00cae2af599d7
 ]
 -src/main/java/domain/model/EncryptedData.java,e\6\e6f6cd328e731b879f7cd4f409da7b92709a41ea
-\
-,src/main/java/ui/security/AESEncryption.java,c\1\c1d5ffe07dcfa2d1161a06a77b6de9b8b102a076
 X
 (src/main/java/domain/error/AppError.java,5\9\5978531dc540a46b49f0c6ee9cfe3f8c21d60fa5
-_
-/src/main/java/ui/security/SignVerifyReport.java,2\0\2041133dd891eb4f558120b69a80b3d3f06952c4
-Z
-*src/main/java/ui/security/SignManager.java,c\f\cfe25e6d8f79f7dcf329583a0a31e578a7dee868
 _
 /src/main/java/ui/security/SignatureManager.java,4\8\4808fe150d36b3e7f11bd3b50c594502b2abb2a0
 b
@@ -49,7 +41,9 @@ Z
 *src/main/java/data/model/ReportEntity.java,c\d\cdf0df5279af8a3ff46002868a6c1047ca71a7bb
 a
 1src/main/java/data/model/AccessControlEntity.java,b\7\b73994469f483f9724d5d02f85bdff57a7851384
-f
-6src/main/java/ui/security/RSAStringEncryptionTool.java,4\1\41cb61ae4d39c7b9eb3fac02a133730a1822d7c2
 `
 0src/main/java/ui/security/RSAEncryptionTool.java,b\9\b96ce273841af56b3d46a12400bc8fbd14eeecd4
+[
++src/main/java/ui/security/SaveUserKeys.java,1\9\1922e11a25f20f7b70fbd585829c24c2a9130ab4
+j
+:src/main/java/domain/error/InvalidPrivateKeyException.java,4\8\48d9b29cd625c9a52e5be3689316d161b7a2ac7e

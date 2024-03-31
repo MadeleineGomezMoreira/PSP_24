@@ -13,6 +13,7 @@ import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Base64;
@@ -29,11 +30,19 @@ public class AESEncryptingTool {
     //gcm authentication tag length: 128 bits
     //iteration count: 65536
 
+    //con esto cifro el informe
+    //el secret debe ser la clave pública del administrador
+
     public Either<AppError, EncryptedData> encrypt(String strToEncrypt) {
         Either<AppError, EncryptedData> operationResult;
         try {
             // Generate a random symmetric key
             SecretKey sk = generateSymmetricKey();
+
+            //the symmetric key must be encrypted using the admin's public key and then stored
+            //to then give access to the key (give report access), the admin will decrypt it using their private key
+            //then encrypt it using the user's public key (they can now decrypt it and access the report)
+            //TODO: do this OUTSIDE this class (database management)
 
             byte[] iv = new byte[12];
             byte[] salt = new byte[16];
@@ -118,9 +127,14 @@ public class AESEncryptingTool {
     }
 
     private SecretKey generateSymmetricKey() throws NoSuchAlgorithmException {
-        //here I generate a random symmetric key using AES algorithm
+        //first we generate a secure random number generator instance
+        SecureRandom secureRandom = SecureRandom.getInstanceStrong();
+
+        //then we initialize the key generator with the secure random instance
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        keyGenerator.init(256); //the key size is 256 bits
+        keyGenerator.init(256, secureRandom);
+
+        //finally we generate the key
         return keyGenerator.generateKey();
     }
 
