@@ -10,6 +10,7 @@ import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.io.FileInputStream;
@@ -24,7 +25,8 @@ import java.security.spec.KeySpec;
 import java.util.Base64;
 import java.util.Date;
 
-public class SaveUserKeys {
+//@Singleton
+public class KeySaverTool {
 
     //LOAD KEYSTORE
     private KeyStore loadKeyStore(
@@ -39,37 +41,28 @@ public class SaveUserKeys {
 
     }
 
+    //TODO: change this to include user + admin salt (not save it into the db here)
     //SAVE USER PRIVATE KEY + CERT TO KEYSTORE
-    public void saveUserToKeyStore(String keyStoreFileName, String userPass, String userName, String serverPass) throws Exception {
-        String aliasPublic = "public";
-        String aliasPrivate = "private";
+    public void saveUserToKeyStore(String keyStoreFileName, String userPass, String userName, String adminPass) throws NoSuchAlgorithmException, InvalidKeySpecException, CertificateException, KeyStoreException, IOException, UnrecoverableKeyException, OperatorCreationException {
+        String aliasPublic = userName + ".public";
+        String aliasPrivate = userName + ".private";
 
-        String userSalt = generateRandomSalt();
-        String adminSalt = generateRandomSalt();
+        char[] adminPassArray = adminPass.toCharArray();
+        char[] userPassArray = userPass.toCharArray();
 
-        //TODO: save this salt into the DB
-
-        char[] adminPassHashed = hashPassword(serverPass, adminSalt);
-        char[] userPassHashed = hashPassword(userPass, userSalt);
-
-        String adminPassHashedString = new String(adminPassHashed);
-        String userPassHashedString = new String(userPassHashed);
-
-        //TODO: save the hashed pw into the DB
-
-        KeyStore keyStore = loadKeyStore(keyStoreFileName, adminPassHashed);
+        KeyStore keyStore = loadKeyStore(keyStoreFileName, adminPassArray);
 
         KeyPair keyPair = generateRandomKeyPair();
 
         //We generate the certificate
-        Certificate certificate = generateCertificate(keyPair, userName, adminSalt, serverPass);
+        Certificate certificate = generateCertificate(keyPair, userName, adminPass);
 
         //we generate the private key
         PrivateKey privateKey = keyPair.getPrivate();
 
         //we store both into the keyStore
         keyStore.setCertificateEntry(aliasPublic, certificate);
-        keyStore.setKeyEntry(aliasPrivate, privateKey, userPassHashed, new Certificate[]{certificate});
+        keyStore.setKeyEntry(aliasPrivate, privateKey, userPassArray, new Certificate[]{certificate});
 
     }
 
@@ -103,10 +96,10 @@ public class SaveUserKeys {
     }
 
     //GENERATE CERTIFICATE
-    private X509Certificate generateCertificate(KeyPair keyPair, String userName, String adminSalt, String adminPass) throws NoSuchAlgorithmException, InvalidKeySpecException, UnrecoverableKeyException, CertificateException, KeyStoreException, IOException, OperatorCreationException {
+    private X509Certificate generateCertificate(KeyPair keyPair, String userName, String adminPass) throws NoSuchAlgorithmException, InvalidKeySpecException, UnrecoverableKeyException, CertificateException, KeyStoreException, IOException, OperatorCreationException {
 
         String keyStoreFileName = "keystore.pfx";
-        char[] adminPassword = hashPassword(adminPass, adminSalt);
+        char[] adminPassword = adminPass.toCharArray();
         String adminPublicKeyAlias = "Made";
 
 
@@ -151,34 +144,6 @@ public class SaveUserKeys {
 
         //and finally we return the created certificate
         return certificate;
-    }
-
-    //GENERATE KEYSTORE PASSWORD
-    private char[] hashPassword(String password, String saltString) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        // First we must define the PBKDF2 parameters
-        int iterations = 10000;
-        int length = 256; // This is length in bits
-        byte[] salt = stringSaltToByteArray(saltString);
-
-        // Now we hash the password using PBKDF2 with HMAC SHA-256
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec keySettings = new PBEKeySpec(password.toCharArray(), salt, iterations, length);
-        byte[] hashBytes = factory.generateSecret(keySettings).getEncoded();
-
-        // We then convert the byte array into a char array using Base64 encoding
-        return Base64.getEncoder().encodeToString(hashBytes).toCharArray();
-    }
-
-    private byte[] stringSaltToByteArray(String saltString) {
-        // Decode the salt string back to its original byte array form
-        byte[] salt = Base64.getDecoder().decode(saltString);
-        return salt;
-    }
-
-    private String generateRandomSalt() {
-        byte[] salt = new byte[16];
-        new SecureRandom().nextBytes(salt);
-        return Base64.getEncoder().encodeToString(salt);
     }
 
 }

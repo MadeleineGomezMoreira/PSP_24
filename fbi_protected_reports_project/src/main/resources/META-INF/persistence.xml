@@ -5,10 +5,8 @@
 
     <persistence-unit name="unit3.hibernate">
         <class>data.model.UserEntity</class>
-<!--        <class>model.hibernate.CredentialHibernate</class>-->
-<!--        <class>model.hibernate.OrderHibernate</class>-->
-<!--        <class>model.hibernate.OrderItemHibernate</class>-->
-<!--        <class>model.hibernate.MenuItemHibernate</class>-->
+        <class>data.model.AccessControlEntity</class>
+        <class>data.model.ReportEntity</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/fbi_reports_psp"/>

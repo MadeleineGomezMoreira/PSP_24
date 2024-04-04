@@ -1,9 +1,8 @@
 package ui.security;
 
 import com.google.common.primitives.Bytes;
-import domain.error.AppError;
+import domain.error.AesEncryptionException;
 import domain.model.EncryptedData;
-import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 
 import javax.crypto.Cipher;
@@ -13,11 +12,11 @@ import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Base64;
 
+//@Singleton
 @Log4j2
 public class AESEncryptingTool {
 
@@ -31,18 +30,12 @@ public class AESEncryptingTool {
     //iteration count: 65536
 
     //con esto cifro el informe
-    //el secret debe ser la clave pública del administrador
 
-    public Either<AppError, EncryptedData> encrypt(String strToEncrypt) {
-        Either<AppError, EncryptedData> operationResult;
+    public EncryptedData encrypt(String strToEncrypt) {
         try {
-            // Generate a random symmetric key
+            //generate a random symmetric key
             SecretKey sk = generateSymmetricKey();
 
-            //the symmetric key must be encrypted using the admin's public key and then stored
-            //to then give access to the key (give report access), the admin will decrypt it using their private key
-            //then encrypt it using the user's public key (they can now decrypt it and access the report)
-            //TODO: do this OUTSIDE this class (database management)
 
             byte[] iv = new byte[12];
             byte[] salt = new byte[16];
@@ -78,18 +71,15 @@ public class AESEncryptingTool {
             encryptedData.setAesKey(encodedAesKey);
             encryptedData.setEncryptedReport(encrypted);
 
-            operationResult = Either.right(encryptedData);
+            return encryptedData;
 
         } catch (Exception e) {
             log.error("Error while encrypting: " + e);
-            operationResult = Either.left(new AppError("Error while encrypting: " + e));
+            throw new AesEncryptionException("Error while encrypting: " + e);
         }
-        return operationResult;
     }
 
-    public Either<AppError, String> decrypt(EncryptedData encryptedData) {
-        Either<AppError, String> operationResult;
-
+    public String decrypt(EncryptedData encryptedData) {
         try {
             //we decode the concatenated byte array that includes the iv, salt and input string
             byte[] decoded = Base64.getUrlDecoder().decode(encryptedData.getEncryptedReport());
@@ -117,20 +107,19 @@ public class AESEncryptingTool {
             //we decrypt the last decoded part (which corresponds with the initial input String) --> (from 28 --> end of array)
             String decrypted = new String(cipher.doFinal(Arrays.copyOfRange(decoded, 28, decoded.length)), StandardCharsets.UTF_8);
 
-            operationResult = Either.right(decrypted);
+            return decrypted;
 
         } catch (Exception e) {
             log.error("Error while decrypting: " + e);
-            operationResult = Either.left(new AppError("Error while decrypting: " + e));
+            throw new AesEncryptionException("Error while decrypting: " + e);
         }
-        return operationResult;
     }
 
     private SecretKey generateSymmetricKey() throws NoSuchAlgorithmException {
         //first we generate a secure random number generator instance
         SecureRandom secureRandom = SecureRandom.getInstanceStrong();
 
-        //then we initialize the key generator with the secure random instance
+        //then we initialize the key generator with the SecureRandom instance
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(256, secureRandom);
 

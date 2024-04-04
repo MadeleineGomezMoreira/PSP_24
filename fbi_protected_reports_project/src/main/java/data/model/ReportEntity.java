@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 @Table(name = "reports")
 public class ReportEntity {
 
-    //TODO: set relationships here
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reportId;
@@ -28,4 +26,7 @@ public class ReportEntity {
     @Column(name = "last_modified_date")
     private LocalDateTime lastModifiedDate;
 
+    public ReportEntity(int reportId) {
+        this.reportId = reportId;
+    }
 }

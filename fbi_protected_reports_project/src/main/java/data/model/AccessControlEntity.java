@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "access_control")
+@NamedQueries({
+        @NamedQuery(name = "HQL_GET_ACCESS_CONTROL_BY_USER_AND_REPORT_ID",
+                query = "from AccessControlEntity where userId=:userId and reportId=:reportId"),
+})
 public class AccessControlEntity {
-
-    //TODO: set relationships here
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +26,8 @@ public class AccessControlEntity {
     @Column(name = "encrypted_key")
     private String encryptedKey;
 
+    public AccessControlEntity(int reportId, int userId) {
+        this.reportId = reportId;
+        this.userId = userId;
+    }
 }

@@ -8,6 +8,7 @@ import org.bouncycastle.cert.X509v3CertificateBuilder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.ContentSigner;
+import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 
 import javax.crypto.SecretKeyFactory;
@@ -27,30 +28,26 @@ import java.util.Date;
 
 public class KeyStoreInitializer {
 
-    public void initializeKeyStore(String adminPasswordString, String fileName) { //KEYSTORE INITIALIZED ALREADY!
+    public void initializeKeyStore(String adminPasswordString, String fileName) {
         //we add the bouncyCastleProvider to our java security settings
         Security.addProvider(new BouncyCastleProvider());
 
         //fileName = "keystore.pfx";
-        String aliasPublic = "public";
-        String aliasPrivate = "private";
-        //adminPasswordString = "12345"; //this password should be the admin's password
-        String salt = generateRandomSalt();
+        String aliasPublic = "admin.public";
+        String aliasPrivate = "admin.private";
 
-        //we use an external method to save both the encoded salt and the hashed password into the DB
-        //TODO: save into DB
 
         try {
             KeyPair keyPair = generateRandomKeyPair();
 
             X509Certificate certificate = generateCertificate(keyPair);
-            char[] password = hashPassword(adminPasswordString, salt);
+            char[] password = adminPasswordString.toCharArray();
             PrivateKey privateKey = keyPair.getPrivate();
 
             createKeyStoreFileWithEntry(fileName, aliasPublic, aliasPrivate, privateKey, certificate, password);
 
             //now I can load my keyStore and use it
-            KeyStore kyst = loadKeyStore(fileName, password);
+            KeyStore keyStore = loadKeyStore(fileName, password);
 
         } catch (Exception e) {
             System.out.println("There was an error: " + e);
@@ -64,7 +61,7 @@ public class KeyStoreInitializer {
             PrivateKey privateKey,
             Certificate certificate,
             char[] password
-    ) throws Exception {
+    ) throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException {
 
         //I create a new instance of KeyStore using the standard PKCS12 format
         KeyStore kyst = KeyStore.getInstance("PKCS12");
@@ -116,7 +113,7 @@ public class KeyStoreInitializer {
         return keyPairGenerator.generateKeyPair();
     }
 
-    private X509Certificate generateCertificate(KeyPair keyPair) throws Exception {
+    private X509Certificate generateCertificate(KeyPair keyPair) throws OperatorCreationException, CertificateException {
 
         //we extract each key from the keyPair
         PrivateKey privateKey = keyPair.getPrivate();
@@ -125,7 +122,7 @@ public class KeyStoreInitializer {
         //WE SET THE KEY PARAMETERS
 
         //we create a name for the certificate owner and issuer
-        X500Name owner = new X500Name("CN=Made");
+        X500Name owner = new X500Name("CN=admin");
         X500Name issuer = new X500Name("CN=Project");
 
         //we set the certificate's serial number
@@ -160,41 +157,4 @@ public class KeyStoreInitializer {
         //and finally we return the created certificate
         return certificate;
     }
-
-    //KEYSTORE PASSWORD
-
-    private char[] hashPassword(String password, String saltString) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        // First we must define the PBKDF2 parameters
-        int iterations = 10000;
-        int length = 256; // This is length in bits
-        byte[] salt = stringSaltToByteArray(saltString);
-
-        // Now we hash the password using PBKDF2 with HMAC SHA-256
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec keySettings = new PBEKeySpec(password.toCharArray(), salt, iterations, length);
-        byte[] hashBytes = factory.generateSecret(keySettings).getEncoded();
-
-        // We then convert the byte array into a char array using Base64 encoding
-        return Base64.getEncoder().encodeToString(hashBytes).toCharArray();
-    }
-
-    private byte[] stringSaltToByteArray(String saltString) {
-        // Decode the salt string back to its original byte array form
-        byte[] salt = Base64.getDecoder().decode(saltString);
-        return salt;
-    }
-
-//    private static byte[] generateRandomSalt() {
-//        byte[] salt = new byte[16];
-//        new SecureRandom().nextBytes(salt);
-//        return salt;
-//    }
-
-    private String generateRandomSalt() {
-        byte[] salt = new byte[16];
-        new SecureRandom().nextBytes(salt);
-        String saltString = Base64.getEncoder().encodeToString(salt);
-        return saltString;
-    }
-
 }

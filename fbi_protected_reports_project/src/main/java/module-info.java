@@ -1,22 +1,26 @@
 module fbi_protected_reports_project {
 
-    requires javafx.graphics;
-    requires javafx.controls;
-    requires javafx.fxml;
-    requires MaterialFX;
-    requires lombok;
     requires org.apache.logging.log4j;
     requires org.bouncycastle.pkix;
     requires org.bouncycastle.provider;
     requires org.bouncycastle.util;
+    requires com.google.common;
+    requires javafx.graphics;
+    requires javafx.controls;
+    requires spring.jdbc;
+    requires javafx.fxml;
+    requires MaterialFX;
+    requires lombok;
+    requires spring.tx;
     requires jakarta.inject;
     requires jakarta.cdi;
     requires io.vavr;
     requires io.reactivex.rxjava3;
     requires org.pdfsam.rxjavafx;
     requires java.logging;
-    requires com.google.common;
-    requires jakarta.jakartaee.web.api;
+    requires java.sql;
+    requires com.zaxxer.hikari;
+    requires jakarta.persistence;
 
     exports ui.fx.main to javafx.graphics;
     exports ui.security;
@@ -26,7 +30,7 @@ module fbi_protected_reports_project {
     exports ui.fx.screens.welcome;
     exports domain.error;
     exports domain.model;
-
+    exports data.model;
 
     opens ui.security;
     opens ui.fx.screens.principal;
@@ -36,6 +40,7 @@ module fbi_protected_reports_project {
     opens ui.fx.main;
     opens domain.error;
     opens domain.model;
+    opens data.model;
 
 
 }
