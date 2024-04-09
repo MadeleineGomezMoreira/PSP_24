@@ -28,6 +28,9 @@ import java.util.Date;
 
 public class KeyStoreInitializer {
 
+
+    //TODO: check if you can build certificates without expiration date :)
+
     public void initializeKeyStore(String adminPasswordString, String fileName) {
         //we add the bouncyCastleProvider to our java security settings
         Security.addProvider(new BouncyCastleProvider());

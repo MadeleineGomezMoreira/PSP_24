@@ -1,26 +1,27 @@
-package domain.services;
+package domain.services.impl;
 
 import data.dao.DaoUser;
 import data.model.UserEntity;
 import domain.error.AppError;
+import domain.services.LoginService;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;
-import ui.security.KeyRetrieverTool;
 import ui.security.PasswordManager;
 
 import java.util.Arrays;
 
-public class LoginUseCase {
+public class LoginServiceImpl implements LoginService {
 
     private final DaoUser daoUser;
     private final PasswordManager passwordManager;
 
     @Inject
-    public LoginUseCase(DaoUser daoUser, PasswordManager passwordManager) {
+    public LoginServiceImpl(DaoUser daoUser, PasswordManager passwordManager) {
         this.daoUser = daoUser;
         this.passwordManager = passwordManager;
     }
 
+    @Override
     public Either<AppError, Boolean> login(UserEntity user) {
         Either<AppError, Boolean> result;
         try {

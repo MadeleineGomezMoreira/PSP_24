@@ -93,3 +93,17 @@ f
 6src/main/java/domain/services/AccessReportUseCase.java,6\7\67218ad0f90f53e87bbe531eebad5370f07c8185
 \
 ,src/main/java/data/dao/DaoAccessControl.java,f\9\f90665139c6b48ec2f62350754025d44f2c2a0df
+c
+3src/main/java/domain/services/LoginServiceImpl.java,7\a\7a9922ffbc9e54826dfba4fbe47a320ddaa68e72
+d
+4src/main/java/domain/services/ReportServiceImpl.java,2\5\25774a736c8b3f6a19293d6348a5dc629bb6284e
+h
+8src/main/java/domain/services/impl/LoginServiceImpl.java,b\e\bed0a38bfd212f475dd00f035ca6c588ccc74468
+`
+0src/main/java/domain/services/ReportService.java,9\d\9d492c0914b1b2dd975ecfbae120fc9611a78d05
+b
+2src/main/java/domain/services/RegisterService.java,a\1\a12d2aa612249104f3cb7c3593b4b515b7e91e6a
+i
+9src/main/java/domain/services/impl/ReportServiceImpl.java,0\f\0f923dc565f35bc1ecd684befaf49a9366dcfd6c
+_
+/src/main/java/domain/services/LoginService.java,3\f\3ff9903019dc4db8b6ecf9aa17c4a44a2ec3a80b

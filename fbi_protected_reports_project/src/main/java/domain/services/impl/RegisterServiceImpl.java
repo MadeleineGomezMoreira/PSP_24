@@ -1,27 +1,29 @@
-package domain.services;
+package domain.services.impl;
 
 import data.dao.DaoUser;
 import data.model.UserEntity;
 import domain.error.AppError;
 import domain.model.PasswordItem;
+import domain.services.RegisterService;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import ui.security.KeySaverTool;
 import ui.security.PasswordManager;
 
-public class RegisterUseCase {
+public class RegisterServiceImpl implements RegisterService {
 
     private final DaoUser daoUser;
     private final PasswordManager passwordManager;
     private final KeySaverTool keySaverTool;
 
     @Inject
-    public RegisterUseCase(DaoUser daoUser, PasswordManager passwordManager, KeySaverTool keySaverTool) {
+    public RegisterServiceImpl(DaoUser daoUser, PasswordManager passwordManager, KeySaverTool keySaverTool) {
         this.daoUser = daoUser;
         this.passwordManager = passwordManager;
         this.keySaverTool = keySaverTool;
     }
 
+    @Override
     public Either<AppError, Integer> registerUser(String username, String password) {
         Either<AppError, Integer> result;
         try {
