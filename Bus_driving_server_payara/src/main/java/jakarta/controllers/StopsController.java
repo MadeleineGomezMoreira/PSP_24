@@ -33,7 +33,7 @@ public class StopsController {
 
     @GET
     @RoleUser
-    @Path("/{id}")
+    @Path("/line/{id}")
     public List<BusStop> getAllStopsInALine(@PathParam(Constants.ID) int id) {
         return getAllStopsInALine.getAllInALine(id);
     }

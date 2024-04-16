@@ -14,7 +14,7 @@ public class QueryStrings {
 
     //BUS-LINE DAO
     public static final String GET_ALL_LINES = "SELECT * FROM bus_line";
-    public static final String GET_ALL_LINES_IN_A_STOP = "SELECT * from bus_line inner join line_stops on bus_line.id_bus_line = line_stops.id_bus_line where line_stops.id_bus_stop = ?";
+    public static final String GET_ALL_LINES_IN_A_STOP = "SELECT * FROM bus_line bl JOIN line_stops ls ON bl.id_bus_line = ls.id_line WHERE ls.id_stop = ?";
     public static final String GET_LINE_BY_ID = "SELECT * FROM bus_line where id_bus_line = ?";
     public static final String INSERT_LINE = "INSERT INTO bus_line (id_bus_line, line_start, line_end) VALUES (?, ?, ?)";
     public static final String UPDATE_LINE = "UPDATE bus_line SET id_bus_line = ?, line_start = ?, line_end = ? WHERE id_bus_line = ?";
@@ -51,11 +51,14 @@ public class QueryStrings {
     public static final String UPDATE_ACTIVATION_CODE =
             "UPDATE driver_credentials " +
                     "SET activation_code = ?, activation_date = ? " +
-                    "WHERE email = ?";
+                    "WHERE email = ? and activated = 0";
+
+    public static final String UPDATE_CREDENTIAL = "UPDATE driver_credentials SET username = ?, password = ?, email = ?, activated = ?, activation_date = ?, activation_code = ?, role_id = ? WHERE credential_id = ?";
 
     public static final String VERIFY_CREDENTIAL = "SELECT d.*, r.* FROM driver_credentials d JOIN account_role r ON d.role_id = r.role_id WHERE d.credential_id = ? AND d.role_id = ?";
 
     public static final String GET_ALL_CREDENTIALS_WITH_ROLE = "SELECT d.*, r.* FROM driver_credentials d JOIN account_role r ON d.role_id = r.role_id";
     public static final String DELETE_CREDENTIAL = "DELETE FROM driver_credentials WHERE credential_id = ?";
     public static final String GET_CREDENTIAL_BY_USERNAME_WITH_ROLE = "SELECT d.*, r.* FROM driver_credentials d JOIN account_role r ON d.role_id = r.role_id WHERE username = ?";
+    public static final String GET_CREDENTIAL_BY_EMAIL_WITH_ROLE = "SELECT d.*, r.* FROM driver_credentials d JOIN account_role r ON d.role_id = r.role_id WHERE email = ?";
 }

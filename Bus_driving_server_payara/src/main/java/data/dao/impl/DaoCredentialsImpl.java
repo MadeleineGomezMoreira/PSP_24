@@ -14,7 +14,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class DaoCredentialsImpl implements DaoCredentials {
@@ -26,6 +25,7 @@ public class DaoCredentialsImpl implements DaoCredentials {
         this.pool = pool;
     }
 
+    //TODO: make everything DAO Standard
     @Override
     public DriverCredential getCredential(DriverCredential credential) {
         DriverCredential result = null;
@@ -37,6 +37,26 @@ public class DaoCredentialsImpl implements DaoCredentials {
                 throw new AuthenticationFailedException(Constants.AUTHENTICATION_FAILED_USERNAME_ERROR);
             } else if (!credentials.get(0).isActivated()) {
                 throw new AccountNotActivatedException(Constants.ACCOUNT_NOT_ACTIVATED);
+            } else {
+                result = credentials.get(0);
+            }
+        } catch (DataAccessException e) {
+            if (e.getCause() instanceof SQLException) {
+                throw new ConnectionFailedException(Constants.CONNECTION_TO_DATABASE_FAILED);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public DriverCredential getCredentialByEmail(DriverCredential credential) {
+        DriverCredential result = null;
+        String email = credential.getEmail();
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            List<DriverCredential> credentials = jdbcTemplate.query(QueryStrings.GET_CREDENTIAL_BY_EMAIL_WITH_ROLE, new CredentialMapper(), email);
+            if (credentials.isEmpty()) {
+                throw new AuthenticationFailedException(Constants.AUTHENTICATION_FAILED_EMAIL_ERROR);
             } else {
                 result = credentials.get(0);
             }
@@ -70,13 +90,16 @@ public class DaoCredentialsImpl implements DaoCredentials {
     }
 
     @Override
-    public boolean updateActivationCode(DriverCredential credential) {
+    public boolean update(DriverCredential credential) {
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            jdbcTemplate.update(QueryStrings.UPDATE_ACTIVATION_CODE, credential.getActivationCode(), credential.getEmail(), LocalDateTime.now());
+            int rowsUpdated = jdbcTemplate.update(QueryStrings.UPDATE_CREDENTIAL, credential.getUsername(), credential.getPassword(), credential.getEmail(), credential.isActivated(), credential.getActivationDate(), credential.getActivationCode(), credential.getRole().getRoleId(), credential.getId());
+            if (rowsUpdated == 0) {
+                throw new ActivationFailedException(Constants.UPDATE_FAILED);
+            }
         } catch (DataAccessException e) {
             if (e.getCause() instanceof SQLException) {
-                throw new ActivationFailedException(Constants.UPDATE_ACTIVATION_CODE_FAILED);
+                throw new ActivationFailedException(Constants.UPDATE_FAILED);
             } else {
                 throw new ActivationFailedException(Constants.INTERNAL_SERVER_ERROR);
             }

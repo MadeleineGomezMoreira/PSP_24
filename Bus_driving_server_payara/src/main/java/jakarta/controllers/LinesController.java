@@ -1,13 +1,13 @@
 package jakarta.controllers;
 
+import common.Constants;
 import domain.model.BusLine;
+import domain.usecases.busline.GetLine;
 import domain.usecases.busline.GetLines;
+import domain.usecases.busline.GetLinesInStop;
 import jakarta.filters.RoleUser;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
@@ -18,16 +18,34 @@ import java.util.List;
 public class LinesController {
 
     private final GetLines getLines;
+    private final GetLine getLine;
+    private final GetLinesInStop getLinesInStop;
 
     @Inject
-    public LinesController(GetLines getLines) {
+    public LinesController(GetLines getLines, GetLine getLine, GetLinesInStop getLinesInStop) {
         this.getLines = getLines;
+        this.getLine = getLine;
+        this.getLinesInStop = getLinesInStop;
     }
 
     @GET
     @RoleUser
-    public List<BusLine> getAllDrivers() {
+    public List<BusLine> getAllLines() {
         return getLines.getAll();
+    }
+
+    @GET
+    @RoleUser
+    @Path("/{id}")
+    public BusLine getLineById(@PathParam(Constants.ID) int id) {
+        return getLine.get(id);
+    }
+
+    @GET
+    @RoleUser
+    @Path("/stop/{id}")
+    public List<BusLine> getAllLinesInStop(@PathParam(Constants.ID) int id) {
+        return getLinesInStop.getAll(id);
     }
 
 

@@ -1,7 +1,6 @@
 package jakarta.controllers;
 
 import common.Constants;
-import domain.model.DriverCredential;
 import domain.usecases.credentials.ActivateAccount;
 import domain.usecases.credentials.UpdateActivationCode;
 import jakarta.inject.Inject;
@@ -20,11 +19,10 @@ import jakarta.ws.rs.core.Response;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Properties;
 
-@Path("/activate")
+@Path("")
 public class ActivateController {
 
     private final ActivateAccount activate;
@@ -37,39 +35,28 @@ public class ActivateController {
     }
 
     @PUT
+    @Path("/activate")
     public Response activateAccount(@QueryParam("email") String email, @QueryParam("code") String code) {
-        DriverCredential credential = new DriverCredential(
-                email,
-                //set as 1 hour more cause for some reason it's 1 hour behind
-                LocalDateTime.now().plusHours(1),
-                code
-        );
-        if (activate.activateAccount(credential)) {
+        if (activate.activateAccount(email, code)) {
             return Response.ok().build();
         } else {
-            return Response.status(Response.Status.EXPECTATION_FAILED).build();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity(Constants.ACTIVATION_LINK_EXPIRED).build();
         }
     }
 
-    @POST
+    @PUT
+    @Path("/resend-code")
     public Response resendActivationCode(@QueryParam("email") String email) {
 
         String urlEncodedActivationCode = generateActivationCode();
 
-        DriverCredential credential = new DriverCredential(
-                email,
-                LocalDateTime.now().plusHours(1),
-                urlEncodedActivationCode
-        );
-
-        if (updateActivationCode.updateActivationCode(credential)) {
+        if (updateActivationCode.updateActivationCode(email, urlEncodedActivationCode)) {
             try {
                 generateAndSendEmail(email,
                         Constants.CLICK_LINK_TO_ACTIVATE_ACCOUNT + Constants.ACTIVATE_ACCOUNT_LINK + "email=" + email + "&code=" + urlEncodedActivationCode);
             } catch (MessagingException e) {
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.FAILED_TO_SEND_EMAIL_ERROR).build();
             }
-
             return Response.ok(Constants.REGISTRATION_WAS_SUCCESSFUL).build();
         } else {
             return Response.status(Response.Status.EXPECTATION_FAILED).build();

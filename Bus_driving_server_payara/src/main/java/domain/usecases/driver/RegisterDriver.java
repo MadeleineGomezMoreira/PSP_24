@@ -34,6 +34,8 @@ public class RegisterDriver {
             credential.setEmail(driver.getEmail());
             credential.setUsername(driver.getUsername());
             credential.setPassword(driver.getPassword());
+            credential.setActivationCode(driver.getActivationCode());
+            credential.setActivationDate(driver.getActivationDate());
             busDriver.setCredential(credential);
             busDriver.setAssignedLine(busLine);
 

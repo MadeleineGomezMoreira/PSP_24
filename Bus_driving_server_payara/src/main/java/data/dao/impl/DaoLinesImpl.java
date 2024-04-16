@@ -31,6 +31,17 @@ public class DaoLinesImpl implements DaoLines {
     }
 
     @Override
+    public List<BusLine> getAll(BusLine line) {
+        int stopId = line.getId();
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+        List<BusLine> lines = jdbcTemplate.query(QueryStrings.GET_ALL_LINES_IN_A_STOP, new BusLineMapper(), stopId);
+        if (lines.isEmpty()) {
+            throw new NotFoundException(Constants.DATA_RETRIEVAL_ERROR_EMPTY_DATA_SOURCE);
+        }
+        return lines;
+    }
+
+    @Override
     public BusLine get(BusLine line) {
         int lineId = line.getId();
         JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());

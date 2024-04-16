@@ -1,7 +1,5 @@
 #bus_driving_server_payara
 
-# response headers set cookie
-
 ###
 @urlbase =http://localhost:8085/Bus_driving_server_payara-1.0-SNAPSHOT/api
 # @name loginAdmin
@@ -9,8 +7,8 @@ POST {{urlbase}}/login
 Content-Type: application/json
 
 {
-  "username": "u9",
-  "password": "p9"
+  "username": {{adminUsername}},
+  "password": {{adminPassword}}
 }
 
 
@@ -20,8 +18,8 @@ POST {{urlbase}}/login
 Content-Type: application/json
 
 {
-  "username": "u8",
-  "password": "p8"
+  "username": {{activatedDriverUsername}},
+  "password": {{activatedDriverPassword}}
 }
 
 ###
@@ -30,8 +28,8 @@ POST {{urlbase}}/login
 Content-Type: application/json
 
 {
-  "username": "u1",
-  "password": "p1"
+  "username": {{unactivatedDriverUsername}},
+  "password": {{unactivatedDriverPassword}}
 }
 
 ###
@@ -49,6 +47,18 @@ Content-Type: application/json
 }
 
 ###
+# @name activateUnactivatedAccount
+PUT {{urlbase}}/activate?email={{unactivatedAccountEmail}}&code={{unactivatedAccountCode}}
+
+###
+# @name resendActivationCode
+PUT {{urlbase}}/resend-code?email={{resendCodeEmail}}}
+
+###
+# @name activateActivatedAccount
+PUT {{urlbase}}/activate?email={{activatedAccountEmail}}&code={{activatedAccountCode}}
+
+###
 # @name getDrivers
 GET {{urlbase}}/drivers
 
@@ -62,4 +72,17 @@ GET {{urlbase}}/stops
 
 ###
 # @name getAllStopsInALine
-GET {{urlbase}}/stops/100
+GET {{urlbase}}/stops/line/100
+
+###
+# @name getAllLines
+GET {{urlbase}}/lines
+
+###
+# @name getLine
+GET {{urlbase}}/lines/100
+
+###
+# @name getLinesInAStop
+GET {{urlbase}}/lines/stop/4757
+

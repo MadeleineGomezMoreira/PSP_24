@@ -121,3 +121,13 @@ X
 (src/main/java/domain/dto/BusStopDTO.java,c\0\c09c98bd1cbf9be28996a96914fd5fdefd57adb1
 s
 Csrc/main/java/domain/usecases/credentials/UpdateActivationCode.java,8\5\85c350114df324b210eb5240113292011c196540
+p
+@src/main/java/domain/exception/AccountNotActivatedException.java,9\d\9da2f454b07a8e23c444008fd79070937d788254
+t
+Dsrc/main/java/domain/exception/AccountAlreadyActivatedException.java,a\b\abbc0c52aa5865bfe941b3fdbce79cde6e402248
+N
+httpTests/http-client.env.json,e\a\ea02e1c17c36632dc33eaa2f391216432971425e
+j
+:src/main/java/domain/usecases/busline/GetLinesInAStop.java,b\6\b67081e13b0c69876bd730e2706d9fd07b711629
+i
+9src/main/java/domain/usecases/busline/GetLinesInStop.java,0\d\0df4c7b80ad8f1a5465c6b8868f238e2856dba72
