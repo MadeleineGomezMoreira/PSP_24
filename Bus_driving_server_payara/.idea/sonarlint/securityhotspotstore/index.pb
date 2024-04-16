@@ -119,3 +119,5 @@ T
 $src/main/java/data/dao/DaoStops.java,e\5\e5a95d4e3b15e2f51b1649c9b4d41091a05d463b
 X
 (src/main/java/domain/dto/BusStopDTO.java,c\0\c09c98bd1cbf9be28996a96914fd5fdefd57adb1
+s
+Csrc/main/java/domain/usecases/credentials/UpdateActivationCode.java,8\5\85c350114df324b210eb5240113292011c196540

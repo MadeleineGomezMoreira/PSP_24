@@ -14,6 +14,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class DaoCredentialsImpl implements DaoCredentials {
@@ -63,6 +64,21 @@ public class DaoCredentialsImpl implements DaoCredentials {
         } catch (DataAccessException e) {
             if (e.getCause() instanceof SQLException) {
                 throw new ActivationFailedException(Constants.ACTIVATION_FAILED);
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateActivationCode(DriverCredential credential) {
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            jdbcTemplate.update(QueryStrings.UPDATE_ACTIVATION_CODE, credential.getActivationCode(), credential.getEmail(), LocalDateTime.now());
+        } catch (DataAccessException e) {
+            if (e.getCause() instanceof SQLException) {
+                throw new ActivationFailedException(Constants.UPDATE_ACTIVATION_CODE_FAILED);
+            } else {
+                throw new ActivationFailedException(Constants.INTERNAL_SERVER_ERROR);
             }
         }
         return true;

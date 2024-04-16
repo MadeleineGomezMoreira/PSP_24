@@ -3,6 +3,7 @@ package jakarta.controllers;
 import common.Constants;
 import domain.model.DriverCredential;
 import domain.usecases.credentials.ActivateAccount;
+import domain.usecases.credentials.UpdateActivationCode;
 import jakarta.inject.Inject;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -27,10 +28,12 @@ import java.util.Properties;
 public class ActivateController {
 
     private final ActivateAccount activate;
+    private final UpdateActivationCode updateActivationCode;
 
     @Inject
-    public ActivateController(ActivateAccount activate) {
+    public ActivateController(ActivateAccount activate, UpdateActivationCode updateActivationCode) {
         this.activate = activate;
+        this.updateActivationCode = updateActivationCode;
     }
 
     @PUT
@@ -48,30 +51,30 @@ public class ActivateController {
         }
     }
 
-    //TODO: implement resend activation code
+    @POST
+    public Response resendActivationCode(@QueryParam("email") String email) {
 
-    //1. generate new activation code
-    //2. update the activation code in the database
-    //3. send email with the new activation code
+        String urlEncodedActivationCode = generateActivationCode();
 
-//    @POST
-//    public Response resendActivationCode(@QueryParam("email") String email) {
+        DriverCredential credential = new DriverCredential(
+                email,
+                LocalDateTime.now().plusHours(1),
+                urlEncodedActivationCode
+        );
 
-        //GET USER BY EMAIL
-        //ADD ACTIVATION CODE TO THE USER
-        //THEN UPDATE THE ACTIVATION CODE
-        //THEN SEND EMAIL
+        if (updateActivationCode.updateActivationCode(credential)) {
+            try {
+                generateAndSendEmail(email,
+                        Constants.CLICK_LINK_TO_ACTIVATE_ACCOUNT + Constants.ACTIVATE_ACCOUNT_LINK + "email=" + email + "&code=" + urlEncodedActivationCode);
+            } catch (MessagingException e) {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.FAILED_TO_SEND_EMAIL_ERROR).build();
+            }
 
-//        String urlEncodedActivationCode = generateActivationCode();
-//
-//        setActivationCode.set(urlEncodedActivationCode, email);
-//
-//        if (resendActivationCode(email)) {
-//            return Response.ok().build();
-//        } else {
-//            return Response.status(Response.Status.EXPECTATION_FAILED).build();
-//        }
-//    }
+            return Response.ok(Constants.REGISTRATION_WAS_SUCCESSFUL).build();
+        } else {
+            return Response.status(Response.Status.EXPECTATION_FAILED).build();
+        }
+    }
 
     private void generateAndSendEmail(String recipient, String message) throws MessagingException {
         Properties mailServerProperties;

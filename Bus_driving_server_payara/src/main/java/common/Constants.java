@@ -34,11 +34,13 @@ public class Constants {
     public static final String CONNECTION_TO_DATABASE_FAILED = "Could not connect to the database.";
     public static final String ACCOUNT_NOT_ACTIVATED = "Account not activated. Please check your email to activate your account.";
     public static final String ACTIVATION_FAILED = "User activation failed.";
+    public static final String UPDATE_ACTIVATION_CODE_FAILED = "Failed to update the activation code.";
     public static final String ACTIVATION_LINK_EXPIRED = "The activation failed because the link is expired. You must use the link within 5 minutes from the moment you received it.";
     public static final String NO_ROWS_AFFECTED = "No rows affected in database.";
     public static final String TOKEN_EXPIRED = "The session has expired. Please log in again.";
     public static final String NO_GENERATED_KEY = "Key was not generated";
     public static final String UNIQUE_FIELD_CONSTRAINT_ERROR = "This username is taken. Please choose another one.";
+    public static final String INTERNAL_SERVER_ERROR = "Internal server error. Please try again later.";
 
     //ERROR NUMERIC CODES
     public static final int UNIQUE_FIELD_CONSTRAINT_ERROR_CODE = 1062;

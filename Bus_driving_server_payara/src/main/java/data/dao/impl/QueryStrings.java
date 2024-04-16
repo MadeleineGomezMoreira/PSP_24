@@ -48,6 +48,11 @@ public class QueryStrings {
                     "WHERE activation_code = ? " +
                     "AND email = ?";
 
+    public static final String UPDATE_ACTIVATION_CODE =
+            "UPDATE driver_credentials " +
+                    "SET activation_code = ?, activation_date = ? " +
+                    "WHERE email = ?";
+
     public static final String VERIFY_CREDENTIAL = "SELECT d.*, r.* FROM driver_credentials d JOIN account_role r ON d.role_id = r.role_id WHERE d.credential_id = ? AND d.role_id = ?";
 
     public static final String GET_ALL_CREDENTIALS_WITH_ROLE = "SELECT d.*, r.* FROM driver_credentials d JOIN account_role r ON d.role_id = r.role_id";

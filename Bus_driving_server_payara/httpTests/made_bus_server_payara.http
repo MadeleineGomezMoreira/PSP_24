@@ -1,5 +1,7 @@
 #bus_driving_server_payara
 
+# response headers set cookie
+
 ###
 @urlbase =http://localhost:8085/Bus_driving_server_payara-1.0-SNAPSHOT/api
 # @name loginAdmin
@@ -56,8 +58,8 @@ GET {{urlbase}}/drivers/1
 
 ###
 # @name getAllStops
-POST {{urlbase}}/stops
+GET {{urlbase}}/stops
 
 ###
 # @name getAllStopsInALine
-PUT {{urlbase}}/stops/100
+GET {{urlbase}}/stops/100
