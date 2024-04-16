@@ -56,7 +56,7 @@ public class DaoDriversImpl implements DaoDrivers {
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
             int id = driver.getId();
-            List<BusDriver> drivers = jdbcTemplate.query(QueryStrings.GET_DRIVER_BY_ID, new BusDriverMapper(), id);
+            List<BusDriver> drivers = jdbcTemplate.query(QueryStrings.GET_DRIVER_BY_ID_WITH_BUS_LINE, new BusDriverMapper(), id);
             if (drivers.isEmpty()) {
                 throw new NotFoundException(Constants.DATA_RETRIEVAL_ERROR_NOT_FOUND);
             }
@@ -156,6 +156,7 @@ public class DaoDriversImpl implements DaoDrivers {
         if (credentialInsertResult.isRight()) {
             generatedKey = credentialInsertResult.get();
         } else {
+            transactionManager.rollback(status);
             throw new UsernameAlreadyExistsException(Constants.UNIQUE_FIELD_CONSTRAINT_ERROR);
         }
 
@@ -174,7 +175,6 @@ public class DaoDriversImpl implements DaoDrivers {
             params.put(DbConstants.FIRST_NAME, driver.getFirstName());
             params.put(DbConstants.LAST_NAME, driver.getLastName());
             params.put(DbConstants.PHONE, driver.getPhone());
-            params.put(DbConstants.ASSIGNED_LINE, driver.getAssignedLine().getId());
 
             affectedRows = insert.execute(params);
             if (affectedRows == 0) {

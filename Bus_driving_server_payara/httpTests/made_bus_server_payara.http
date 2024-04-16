@@ -1,0 +1,63 @@
+#bus_driving_server_payara
+
+###
+@urlbase =http://localhost:8085/Bus_driving_server_payara-1.0-SNAPSHOT/api
+# @name loginAdmin
+POST {{urlbase}}/login
+Content-Type: application/json
+
+{
+  "username": "u9",
+  "password": "p9"
+}
+
+
+###
+# @name loginActivatedDriver
+POST {{urlbase}}/login
+Content-Type: application/json
+
+{
+  "username": "u8",
+  "password": "p8"
+}
+
+###
+# @name loginUnactivatedDriver
+POST {{urlbase}}/login
+Content-Type: application/json
+
+{
+  "username": "u1",
+  "password": "p1"
+}
+
+###
+# @name register
+GET {{urlbase}}/register
+Content-Type: application/json
+
+{
+  "firstName": "Celia4",
+  "lastName": "Solera4",
+  "phone": "623282914",
+  "username": "u10",
+  "password": "p10",
+  "email": "mcclaraboo@gmail.com"
+}
+
+###
+# @name getDrivers
+GET {{urlbase}}/drivers
+
+###
+# @name getDriver
+GET {{urlbase}}/drivers/1
+
+###
+# @name getAllStops
+POST {{urlbase}}/stops
+
+###
+# @name getAllStopsInALine
+PUT {{urlbase}}/stops/100

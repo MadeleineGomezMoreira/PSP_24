@@ -25,6 +25,10 @@ public class DriverCredential {
         this.activationCode = activationCode;
     }
 
+    public DriverCredential(String username) {
+        this.username = username;
+    }
+
     public DriverCredential(int id, AccountRole role) {
         this.id = id;
         this.role = role;

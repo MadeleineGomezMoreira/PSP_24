@@ -2,10 +2,28 @@ package common;
 
 public class Constants {
 
+
+    public static final String LOGIN = "LOGIN";
+    public static final String ROLE = "ROLE";
+    public static final String ADMIN = "ADMIN";
+    public static final String USER = "USER";
+
     private Constants() {
     }
 
+    //STRING MESSAGES
+    public static final String REGISTRATION_WAS_SUCCESSFUL = "Registration was successful. Please check your email to activate your account.";
+    public static final String CLICK_LINK_TO_ACTIVATE_ACCOUNT = "Welcome to the system! Click on this link to activate your account:";
+    public static final String ACTIVATE_YOUR_ACCOUNT = "Activate your account - Bus Driving App";
+
+    //LINK PATHS
+    public static final String ACTIVATE_ACCOUNT_LINK = "http://localhost:8085/server-1.0-SNAPSHOT/api/activate?";
+
     //ERROR MESSAGES
+    public static final String USER_NOT_LOGGED_IN_ERROR = "User not logged in. Please log in to access this resource.";
+    public static final String ACCESS_DENIED_ONLY_ADMIN = "Only administrators have access to this resource.";
+    public static final String ACCESS_DENIED_ONLY_USER = "Only logged users have access to this resource.";
+    public static final String FAILED_TO_SEND_EMAIL_ERROR = "Failed to send email. Please try again later.";
     public static final String DATA_RETRIEVAL_ERROR_NOT_FOUND = "The data was not found";
     public static final String DATA_RETRIEVAL_ERROR_EMPTY_DATA_SOURCE = "The data was not found";
     public static final String INVALID_DATA_FORMAT_ERROR = "Invalid data format";

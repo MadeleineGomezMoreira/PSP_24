@@ -28,9 +28,10 @@ public class DaoCredentialsImpl implements DaoCredentials {
     @Override
     public DriverCredential getCredential(DriverCredential credential) {
         DriverCredential result = null;
+        String username = credential.getUsername();
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            List<DriverCredential> credentials = jdbcTemplate.query(QueryStrings.GET_CREDENTIAL_BY_USERNAME_WITH_ROLE, new CredentialMapper(), credential.getUsername());
+            List<DriverCredential> credentials = jdbcTemplate.query(QueryStrings.GET_CREDENTIAL_BY_USERNAME_WITH_ROLE, new CredentialMapper(), username);
             if (credentials.isEmpty()) {
                 throw new AuthenticationFailedException(Constants.AUTHENTICATION_FAILED_USERNAME_ERROR);
             } else if (!credentials.get(0).isActivated()) {

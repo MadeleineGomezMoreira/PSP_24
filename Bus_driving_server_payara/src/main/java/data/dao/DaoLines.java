@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface DaoLines {
     List<BusLine> getAll();
+
+    BusLine get(BusLine line);
 }

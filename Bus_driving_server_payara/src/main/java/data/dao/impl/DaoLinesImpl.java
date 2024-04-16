@@ -29,4 +29,15 @@ public class DaoLinesImpl implements DaoLines {
         }
         return lines;
     }
+
+    @Override
+    public BusLine get(BusLine line) {
+        int lineId = line.getId();
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+        List<BusLine> lines = jdbcTemplate.query(QueryStrings.GET_LINE_BY_ID, new BusLineMapper(), lineId);
+        if (lines.isEmpty()) {
+            throw new NotFoundException(Constants.DATA_RETRIEVAL_ERROR_EMPTY_DATA_SOURCE);
+        }
+        return lines.get(0);
+    }
 }
