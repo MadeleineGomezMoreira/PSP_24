@@ -1,0 +1,10 @@
+#bus_driving_server_payara
+
+#please remember to change the activation_date before testing
+
+###
+@urlbase =http://localhost:8085/Bus_driving_server_payara-1.0-SNAPSHOT/api
+
+###
+# @name activateUnactivatedAccount
+PUT {{urlbase}}/activate?email={{unactivatedAccountEmail}}&code={{unactivatedAccountCode}}

@@ -151,7 +151,7 @@ public class DaoDriversImpl implements DaoDrivers {
         params.put(DbConstants.ACTIVATION_CODE, credential.getActivationCode());
 
         int generatedKey;
-        Either<BusError, Integer> credentialInsertResult = insertCredential(status, transactionManager, insert, params);
+        Either<BusError, Integer> credentialInsertResult = insertCredential(insert, params);
 
         if (credentialInsertResult.isRight()) {
             generatedKey = credentialInsertResult.get();
@@ -175,6 +175,7 @@ public class DaoDriversImpl implements DaoDrivers {
             params.put(DbConstants.FIRST_NAME, driver.getFirstName());
             params.put(DbConstants.LAST_NAME, driver.getLastName());
             params.put(DbConstants.PHONE, driver.getPhone());
+            params.put(DbConstants.ASSIGNED_LINE, driver.getAssignedLine().getId());
 
             affectedRows = insert.execute(params);
             if (affectedRows == 0) {
@@ -187,13 +188,12 @@ public class DaoDriversImpl implements DaoDrivers {
         }
     }
 
-    private Either<BusError, Integer> insertCredential(TransactionStatus status, DataSourceTransactionManager transactionManager, SimpleJdbcInsert insert, Map<String, Object> params) {
+    private Either<BusError, Integer> insertCredential(SimpleJdbcInsert insert, Map<String, Object> params) {
         int generatedKey;
         try {
             generatedKey = insert.executeAndReturnKey(params).intValue();
             return Either.right(generatedKey);
         } catch (DuplicateKeyException e) {
-            transactionManager.rollback(status);
             return Either.left(new BusError(Constants.UNIQUE_FIELD_CONSTRAINT_ERROR));
         }
     }

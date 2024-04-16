@@ -25,7 +25,7 @@ public class DaoCredentialsImpl implements DaoCredentials {
         this.pool = pool;
     }
 
-    //TODO: make everything DAO Standard
+    //if there's time, make this standard (using standard dao methods - get, getAll, save, update, delete)
     @Override
     public DriverCredential getCredential(DriverCredential credential) {
         DriverCredential result = null;

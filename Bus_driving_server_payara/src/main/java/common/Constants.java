@@ -41,7 +41,7 @@ public class Constants {
     public static final String NO_ROWS_AFFECTED = "No rows affected in database.";
     public static final String TOKEN_EXPIRED = "The session has expired. Please log in again.";
     public static final String NO_GENERATED_KEY = "Key was not generated";
-    public static final String UNIQUE_FIELD_CONSTRAINT_ERROR = "This username is taken. Please choose another one.";
+    public static final String UNIQUE_FIELD_CONSTRAINT_ERROR = "This username or email address is taken. Please choose another one.";
     public static final String INTERNAL_SERVER_ERROR = "Internal server error. Please try again later.";
     public static final String AUTHENTICATION_FAILED_EMAIL_ERROR = "Authentication failed. No user found with this email.";
 

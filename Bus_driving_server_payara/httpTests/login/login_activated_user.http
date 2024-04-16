@@ -1,0 +1,14 @@
+#bus_driving_server_payara
+
+###
+@urlbase =http://localhost:8085/Bus_driving_server_payara-1.0-SNAPSHOT/api
+
+###
+# @name loginActivatedDriver
+POST {{urlbase}}/login
+Content-Type: application/json
+
+{
+  "username": {{activatedDriverUsername}},
+  "password": {{activatedDriverPassword}}
+}

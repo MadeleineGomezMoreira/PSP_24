@@ -20,7 +20,7 @@ public class QueryStrings {
     public static final String UPDATE_LINE = "UPDATE bus_line SET id_bus_line = ?, line_start = ?, line_end = ? WHERE id_bus_line = ?";
     public static final String DELETE_LINE = "DELETE FROM bus_line WHERE id_bus_line = ?";
 
-    //BUS-STOP DAO - moonlight sonata
+    //BUS-STOP DAO
     public static final String GET_ALL_STOPS = "SELECT * FROM bus_stop";
     public static final String GET_ALL_STOPS_IN_A_LINE = "SELECT * FROM bus_stop bs JOIN line_stops ls ON bs.id_bus_stop = ls.id_stop WHERE ls.id_line = ?;";
     public static final String GET_STOP_BY_ID = "SELECT * FROM bus_stop where id_bus_stop = ?";

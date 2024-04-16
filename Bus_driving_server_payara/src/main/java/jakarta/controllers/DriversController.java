@@ -36,7 +36,7 @@ public class DriversController {
     }
 
     @GET
-    @RoleUser
+    @RoleAdmin
     public List<BusDriver> getAllDrivers() {
         return getAll.getAll();
     }

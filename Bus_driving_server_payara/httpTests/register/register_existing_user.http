@@ -1,0 +1,18 @@
+#bus_driving_server_payara
+
+###
+@urlbase =http://localhost:8085/Bus_driving_server_payara-1.0-SNAPSHOT/api
+
+###
+# @name register
+POST {{urlbase}}/register
+Content-Type: application/json
+
+{
+  "firstName": "Elena",
+  "lastName": "Delgado",
+  "phone": "627389512",
+  "username": "u1",
+  "password": "p1",
+  "email": "eDelgado99@gmail.com"
+}
