@@ -5,4 +5,4 @@
 
 ###
 # @name activateActivatedAccount
-PUT {{urlbase}}/activate?email={{activatedAccountEmail}}&code={{activatedAccountCode}}
+GET {{urlbase}}/activate?email={{activatedAccountEmail}}&code={{activatedAccountCode}}

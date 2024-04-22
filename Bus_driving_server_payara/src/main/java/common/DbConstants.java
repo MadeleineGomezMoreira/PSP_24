@@ -2,7 +2,7 @@ package common;
 
 public class DbConstants {
 
-    public DbConstants() {
+    private DbConstants() {
     }
 
     //Bus-driver

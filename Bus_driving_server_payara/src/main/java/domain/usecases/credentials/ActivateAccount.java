@@ -3,7 +3,6 @@ package domain.usecases.credentials;
 import common.Constants;
 import data.dao.DaoCredentials;
 import domain.exception.AccountAlreadyActivatedException;
-import domain.exception.AccountNotActivatedException;
 import domain.exception.ActivationFailedException;
 import domain.model.DriverCredential;
 import jakarta.inject.Inject;
@@ -46,7 +45,7 @@ public class ActivateAccount {
             } else {
                 return false;
             }
-        }catch (UnsupportedEncodingException e){
+        } catch (UnsupportedEncodingException e) {
             throw new ActivationFailedException(Constants.ACTIVATION_FAILED_ENCODING_ERROR);
         }
     }

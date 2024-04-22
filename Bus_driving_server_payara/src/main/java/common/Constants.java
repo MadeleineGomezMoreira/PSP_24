@@ -2,14 +2,29 @@ package common;
 
 public class Constants {
 
-
-    public static final String LOGIN = "LOGIN";
-    public static final String ROLE = "ROLE";
-    public static final String ADMIN = "ADMIN";
-    public static final String USER = "USER";
-
     private Constants() {
     }
+
+    //PATH STRINGS
+    public static final String ACTIVATE_PATH = "/activate";
+    public static final String RESEND_CODE_PATH = "/resend-code";
+    public static final String REGISTER_PATH = "/register";
+    public static final String DRIVERS_PATH = "/drivers";
+    public static final String ID_PARAM_PATH = "/{id}";
+    public static final String DELETE_DRIVER_PATH = "/delete/{id}";
+    public static final String LINES_PATH = "/lines";
+    public static final String GET_STOP_PATH = "/stop/{id}";
+    public static final String EMPTY_PATH = "";
+    public static final String LOGIN_PATH = "/login";
+    public static final String LOGOFF_PATH = "/logoff";
+    public static final String STOPS_PATH = "/stops";
+    public static final String GET_STOPS_IN_LINE_PATH = "/line/{id}";
+    public static final String APP_PATH = "/api";
+
+
+    //QUERY PARAMS
+    public static final String EMAIL = "email";
+    public static final String CODE = "code";
 
     //STRING MESSAGES
     public static final String REGISTRATION_WAS_SUCCESSFUL = "Registration was successful. Please check your email to activate your account.";
@@ -20,6 +35,7 @@ public class Constants {
     public static final String ACTIVATE_ACCOUNT_LINK = "http://localhost:8085/server-1.0-SNAPSHOT/api/activate?";
 
     //ERROR MESSAGES
+    public static final String VALIDATION_FAILED_ERROR = "Validation failed. Please provide all required fields.";
     public static final String USER_NOT_LOGGED_IN_ERROR = "User not logged in. Please log in to access this resource.";
     public static final String ACCESS_DENIED_ONLY_ADMIN = "Only administrators have access to this resource.";
     public static final String ACCESS_DENIED_ONLY_USER = "Only logged users have access to this resource.";
@@ -36,20 +52,41 @@ public class Constants {
     public static final String ACCOUNT_ALREADY_ACTIVATED = "Account already activated. Log in with your credentials to access it.";
     public static final String ACTIVATION_FAILED = "User activation failed.";
     public static final String ACTIVATION_FAILED_ENCODING_ERROR = "User activation failed. There was an error while decoding the activation code.";
-    public static final String UPDATE_FAILED = "Failed to update the credential.";
+    public static final String UPDATE_FAILED_CREDENTIAL = "Failed to update the credential.";
+    public static final String UPDATE_FAILED_DRIVER = "Failed to update the driver's information.";
     public static final String ACTIVATION_LINK_EXPIRED = "The activation failed because the link is expired. You must use the link within 5 minutes from the moment you received it.";
     public static final String NO_ROWS_AFFECTED = "No rows affected in database.";
-    public static final String TOKEN_EXPIRED = "The session has expired. Please log in again.";
-    public static final String NO_GENERATED_KEY = "Key was not generated";
+    public static final String INSERT_FAILED_EXCEPTION = "There was an error while inserting the data into the database.";
     public static final String UNIQUE_FIELD_CONSTRAINT_ERROR = "This username or email address is taken. Please choose another one.";
     public static final String INTERNAL_SERVER_ERROR = "Internal server error. Please try again later.";
     public static final String AUTHENTICATION_FAILED_EMAIL_ERROR = "Authentication failed. No user found with this email.";
 
-    //ERROR NUMERIC CODES
-    public static final int UNIQUE_FIELD_CONSTRAINT_ERROR_CODE = 1062;
+    //ROLE STRINGS
+
+    public static final String LOGIN = "LOGIN";
+    public static final String ROLE = "ROLE";
+    public static final String ADMIN = "ADMIN";
+    public static final String USER = "USER";
+
 
     //JAKARTA CONSTANTS
     public static final String ID = "id";
+
+    //CONFIG EMAIL
+    public static final int MAIL_PORT_NUM = 587;
+    public static final String MAIL_PORT = "mail.smtp.port";
+    public static final String MAIL_AUTH = "mail.smtp.auth";
+    public static final String MAIL_SSL_TRUST = "mail.smtp.ssl.trust";
+    public static final String MAIL_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
+    public static final String STMP_GMAIL = "smtp.gmail.com";
+    public static final String TRUE = "true";
+    public static final String MESSAGE_TEXT_TYPE = "text/html";
+    public static final String STMP_PROTOCOL = "smtp";
+    public static final String EMAIL_HOST = "emailHost";
+    public static final String EMAIL_USER = "emailUser";
+    public static final String EMAIL_PASSWORD = "emailPassword";
+    public static final String EMAIL_URL = "email=";
+    public static final String CODE_URL = "&code=";
 
     //CONFIG JDBC
     public static final String DB_URL = "dbUrl";

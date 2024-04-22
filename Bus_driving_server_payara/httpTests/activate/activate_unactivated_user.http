@@ -7,4 +7,4 @@
 
 ###
 # @name activateUnactivatedAccount
-PUT {{urlbase}}/activate?email={{unactivatedAccountEmail}}&code={{unactivatedAccountCode}}
+GET {{urlbase}}/activate?email={{unactivatedAccountEmail}}&code={{unactivatedAccountCode}}

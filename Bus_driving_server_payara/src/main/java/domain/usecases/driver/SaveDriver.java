@@ -3,11 +3,8 @@ package domain.usecases.driver;
 import common.Constants;
 import data.dao.DaoDrivers;
 import data.dao.DaoLines;
-import domain.dto.RegisterDTO;
 import domain.exception.DriverValidationException;
 import domain.model.BusDriver;
-import domain.model.BusLine;
-import domain.model.DriverCredential;
 import jakarta.inject.Inject;
 
 public class SaveDriver {

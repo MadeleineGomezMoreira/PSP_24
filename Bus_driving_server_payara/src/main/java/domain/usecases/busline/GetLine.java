@@ -4,8 +4,6 @@ import data.dao.impl.DaoLinesImpl;
 import domain.model.BusLine;
 import jakarta.inject.Inject;
 
-import java.util.List;
-
 public class GetLine {
 
     private final DaoLinesImpl dao;

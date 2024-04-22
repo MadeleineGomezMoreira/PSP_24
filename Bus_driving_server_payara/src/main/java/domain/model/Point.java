@@ -3,8 +3,6 @@ package domain.model;
 import lombok.Data;
 
 import java.nio.ByteBuffer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Data
 public class Point {
@@ -15,6 +13,7 @@ public class Point {
         this.x = x;
         this.y = y;
     }
+
     public static Point fromByteArray(byte[] byteArray) {
         if (byteArray == null) {
             throw new IllegalArgumentException("Invalid byte array format");

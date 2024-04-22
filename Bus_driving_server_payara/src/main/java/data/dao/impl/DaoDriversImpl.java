@@ -87,7 +87,7 @@ public class DaoDriversImpl implements DaoDrivers {
             if (affectedRows != 0) {
                 return driver;
             } else {
-                throw new UpdateFailedException(Constants.NO_ROWS_AFFECTED);
+                throw new UpdateFailedException(Constants.UPDATE_FAILED_DRIVER);
             }
         } catch (DataAccessException e) {
             if (e.getCause() instanceof SQLException) {
@@ -110,7 +110,7 @@ public class DaoDriversImpl implements DaoDrivers {
             affectedRows = jdbcTemplate.update(QueryStrings.DELETE_CREDENTIAL, driver.getId());
             if (affectedRows == 0) {
                 transactionManager.rollback(status);
-                throw new UpdateFailedException(Constants.NO_ROWS_AFFECTED);
+                throw new UpdateFailedException(Constants.UPDATE_FAILED_DRIVER);
             } else {
                 transactionManager.commit(status);
             }
@@ -162,7 +162,7 @@ public class DaoDriversImpl implements DaoDrivers {
 
         if (generatedKey == 0) {
             transactionManager.rollback(status);
-            throw new InsertFailedException(Constants.NO_GENERATED_KEY);
+            throw new InsertFailedException(Constants.INSERT_FAILED_EXCEPTION);
         } else {
 
             insert = new SimpleJdbcInsert(pool.getDataSource())

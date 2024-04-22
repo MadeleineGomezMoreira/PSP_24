@@ -20,6 +20,7 @@ public class RegisterDriver {
         this.dao = dao;
         this.daoLines = daoLines;
     }
+
     public BusDriver registerDriver(RegisterDTO driver) {
         if (driver != null) {
             //we create a bus driver object from the dto

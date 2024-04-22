@@ -13,7 +13,7 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
-@Path("/drivers")
+@Path(Constants.DRIVERS_PATH)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class DriversController {
@@ -43,7 +43,7 @@ public class DriversController {
 
     @GET
     @RoleUser
-    @Path("/{id}")
+    @Path(Constants.ID_PARAM_PATH)
     @Produces(MediaType.APPLICATION_JSON)
     public BusDriver getDriver(@PathParam(Constants.ID) int id) {
         return getById.get(id);
@@ -66,7 +66,7 @@ public class DriversController {
 
     @DELETE
     @RoleAdmin
-    @Path("/delete/{id}")
+    @Path(Constants.DELETE_DRIVER_PATH)
     public Response deleteDriver(@PathParam(Constants.ID) int id) {
         boolean deleted = delete.delete(id);
         if (deleted) {

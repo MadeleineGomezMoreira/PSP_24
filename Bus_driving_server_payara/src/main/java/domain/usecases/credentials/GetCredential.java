@@ -1,6 +1,8 @@
 package domain.usecases.credentials;
 
+import common.Constants;
 import data.dao.DaoCredentials;
+import domain.exception.AccountNotActivatedException;
 import domain.model.DriverCredential;
 import jakarta.inject.Inject;
 
@@ -14,6 +16,11 @@ public class GetCredential {
     }
 
     public DriverCredential getCredential(String username) {
-        return dao.getCredential(new DriverCredential(username));
+        DriverCredential credential = dao.getCredential(new DriverCredential(username));
+        if (!credential.isActivated()) {
+            throw new AccountNotActivatedException(Constants.ACCOUNT_NOT_ACTIVATED);
+        } else{
+            return credential;
+        }
     }
 }

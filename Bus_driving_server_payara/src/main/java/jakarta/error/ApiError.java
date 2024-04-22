@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 @ToString
 public class ApiError {
 
-  private String message;
-  private LocalDateTime date;
+    private String message;
+    private LocalDateTime date;
 
-  public ApiError(String message) {
-    this.message = message;
-    this.date = LocalDateTime.now();
-  }
+    public ApiError(String message) {
+        this.message = message;
+        this.date = LocalDateTime.now();
+    }
 }

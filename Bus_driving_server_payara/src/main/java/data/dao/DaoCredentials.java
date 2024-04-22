@@ -7,9 +7,6 @@ public interface DaoCredentials {
 
     DriverCredential getCredentialByEmail(DriverCredential credential);
 
-    boolean activateCredential(DriverCredential credential);
-
     boolean update(DriverCredential credential);
 
-    boolean verifyCredential(DriverCredential credential);
 }

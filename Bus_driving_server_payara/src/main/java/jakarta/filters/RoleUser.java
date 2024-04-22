@@ -7,4 +7,5 @@ import java.lang.annotation.RetentionPolicy;
 
 @NameBinding
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RoleUser {}
+public @interface RoleUser {
+}

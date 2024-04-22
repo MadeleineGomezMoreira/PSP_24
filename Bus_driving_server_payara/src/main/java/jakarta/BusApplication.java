@@ -1,12 +1,12 @@
 package jakarta;
 
 
-import jakarta.annotation.security.DeclareRoles;
+import common.Constants;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
 
-@ApplicationPath("/api")
+@ApplicationPath(Constants.APP_PATH)
 public class BusApplication extends Application {
 
 }

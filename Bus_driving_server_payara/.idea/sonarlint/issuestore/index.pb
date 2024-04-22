@@ -15,8 +15,6 @@ _
 -src/main/java/data/dao/impl/QueryStrings.java,5\0\5010b001b1c4b57eec9c3015573645eb884b6d1f
 ]
 -src/main/java/jakarta/filters/CorsFilter.java,4\b\4b6086f91a47722e5aceb035f981f74708144374
-W
-'src/main/java/jakarta/di/Producers.java,c\8\c823d5df9df3c3fb5cff7cf4f1e8ab3693fd2fee
 Q
 !src/main/webapp/WEB-INF/beans.xml,8\3\83008b1a88ba03a2548bb5b9ad0768c6c307d36c
 S
@@ -33,8 +31,6 @@ n
 >src/main/java/domain/usecases/credentials/ActivateAccount.java,6\f\6f00f876d9aa0e0c9b569e837e16ceece06269a6
 l
 <src/main/java/domain/usecases/credentials/GetCredential.java,1\3\132e1a1d1f15ccebfb96d4e49dd119071e7f054e
-o
-?src/main/java/domain/usecases/credentials/VerifyCredential.java,d\5\d5ba4783bd7afaaa42605960736160c2b8005394
 f
 6src/main/java/domain/usecases/driver/DeleteDriver.java,4\6\46dd5662d8748fcb20619fb9bec35944a2c6504d
 g
@@ -127,26 +123,14 @@ t
 Dsrc/main/java/domain/exception/AccountAlreadyActivatedException.java,a\b\abbc0c52aa5865bfe941b3fdbce79cde6e402248
 N
 httpTests/http-client.env.json,e\a\ea02e1c17c36632dc33eaa2f391216432971425e
-j
-:src/main/java/domain/usecases/busline/GetLinesInAStop.java,b\6\b67081e13b0c69876bd730e2706d9fd07b711629
 i
 9src/main/java/domain/usecases/busline/GetLinesInStop.java,0\d\0df4c7b80ad8f1a5465c6b8868f238e2856dba72
-P
- httpTests/register_new_user.http,f\9\f97c9e9e803d104868b5e7fe56e89acfb0ceca1e
-U
-%httpTests/register_existing_user.http,5\c\5ca1616486c5a4854ab00aa478eced9f5f09f105
-S
-#httpTests/login_activated_user.http,5\9\59c4de874ca903bc00243e6ef9e374d96ac86f3a
-U
-%httpTests/login_unactivated_user.http,9\d\9db294ae025ca1e34a17c90b52eb5f74c51ce785
 [
 +httpTests/login/login_unactivated_user.http,c\0\c0fb2cc467ef15e86fd1a2caa6b22079702e690c
 P
  httpTests/login/login_admin.http,4\6\46981816c341dafe2b2f1ec3ff3dec130ecd2627
 V
 &httpTests/drivers/get_all_drivers.http,2\b\2b431c3308f31f099e306934df0bb4c17b16910a
-b
-2httpTests/activate/activate_with_expired_code.http,a\8\a87b9dadf213057f4ebd6549ba3da1eba3f7e495
 _
 /httpTests/activate/activate_activated_user.http,b\6\b646f04650b039d16bccbcce528acab30b352bb9
 ^
@@ -159,8 +143,6 @@ R
 "httpTests/stops/get_all_stops.http,1\3\131303e72275512a81a89aac2c0182584359f690
 \
 ,httpTests/stops/get_all_stops_in_a_line.http,4\8\481822c0d2c3df0cdc5162fb7b933d4ca9c5f95e
-S
-#httpTests/stops/get_stop_by_id.http,2\6\2614dedbcc9a9bb4e81e2d28b24395c48503f8aa
 R
 "httpTests/lines/get_all_lines.http,a\f\af90eae7049b5f2349625bfa86ca9cdf9b121cd3
 S
@@ -173,3 +155,17 @@ Y
 .httpTests/register/register_existing_user.http,e\2\e2f743b75a89040f064f9c66db16e6352fb9520b
 Y
 )httpTests/register/register_new_user.http,4\c\4c96e16e9217c2933a5871278af34ec637e0bb76
+l
+<src/main/java/domain/usecases/email/sendActivationEmail.java,c\7\c750c65400cbe3e94e5684a4193185e89096c14d
+l
+<src/main/java/domain/usecases/email/SendActivationEmail.java,d\1\d1965e4ef3e2bec4d3702e9e01f6037d1d0dac37
+U
+%src/main/java/common/DbConstants.java,3\1\311d1fcf8d1164a199e2843a1ecacff2d1878ace
+d
+4src/main/java/domain/usecases/credentials/Login.java,0\a\0ae76ff8ebfb395b61b7ce1abe038ce78c6c07a2
+n
+>src/main/java/domain/usecases/credentials/LoginAndGetRole.java,e\9\e97cda4b9e0136f9714a29bd2f0254991ae3f7f8
+q
+Asrc/main/java/domain/exception/AuthenticationFailedException.java,5\9\59e3d2ebbf41be3cb5a4cd64332bc22e2bb122e4
+|
+Lsrc/main/java/jakarta/error/mappers/AuthenticationFailedExceptionMapper.java,6\8\68c627b5cb313d3ec50d482363ee28ea152f74de

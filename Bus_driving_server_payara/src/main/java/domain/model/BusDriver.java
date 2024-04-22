@@ -31,7 +31,7 @@ public class BusDriver {
         this.assignedLine = assignedLine;
     }
 
-    public BusDriver(String firstName, String lastName, String phone,  BusLine assignedLine, DriverCredential credential) {
+    public BusDriver(String firstName, String lastName, String phone, BusLine assignedLine, DriverCredential credential) {
         this.id = 0;
         this.firstName = firstName;
         this.lastName = lastName;

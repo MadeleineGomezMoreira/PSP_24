@@ -2,7 +2,6 @@ package domain.usecases.driver;
 
 import common.Constants;
 import data.dao.DaoDrivers;
-import data.dao.impl.DaoDriversImpl;
 import domain.exception.DataValidationException;
 import domain.model.BusDriver;
 import jakarta.inject.Inject;

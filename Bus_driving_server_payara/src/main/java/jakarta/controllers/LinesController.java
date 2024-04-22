@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 
-@Path("/lines")
+@Path(Constants.LINES_PATH)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class LinesController {
@@ -36,14 +36,14 @@ public class LinesController {
 
     @GET
     @RoleUser
-    @Path("/{id}")
+    @Path(Constants.ID_PARAM_PATH)
     public BusLine getLineById(@PathParam(Constants.ID) int id) {
         return getLine.get(id);
     }
 
     @GET
     @RoleUser
-    @Path("/stop/{id}")
+    @Path(Constants.GET_STOP_PATH)
     public List<BusLine> getAllLinesInStop(@PathParam(Constants.ID) int id) {
         return getLinesInStop.getAll(id);
     }

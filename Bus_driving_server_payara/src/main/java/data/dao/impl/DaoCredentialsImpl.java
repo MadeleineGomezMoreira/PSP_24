@@ -4,7 +4,6 @@ import common.Constants;
 import data.connection.DBConnectionPool;
 import data.dao.DaoCredentials;
 import data.dao.mappers.CredentialMapper;
-import domain.exception.AccountNotActivatedException;
 import domain.exception.ActivationFailedException;
 import domain.exception.AuthenticationFailedException;
 import domain.exception.ConnectionFailedException;
@@ -25,7 +24,6 @@ public class DaoCredentialsImpl implements DaoCredentials {
         this.pool = pool;
     }
 
-    //if there's time, make this standard (using standard dao methods - get, getAll, save, update, delete)
     @Override
     public DriverCredential getCredential(DriverCredential credential) {
         DriverCredential result = null;
@@ -35,9 +33,7 @@ public class DaoCredentialsImpl implements DaoCredentials {
             List<DriverCredential> credentials = jdbcTemplate.query(QueryStrings.GET_CREDENTIAL_BY_USERNAME_WITH_ROLE, new CredentialMapper(), username);
             if (credentials.isEmpty()) {
                 throw new AuthenticationFailedException(Constants.AUTHENTICATION_FAILED_USERNAME_ERROR);
-            } else if (!credentials.get(0).isActivated()) {
-                throw new AccountNotActivatedException(Constants.ACCOUNT_NOT_ACTIVATED);
-            } else {
+            }else {
                 result = credentials.get(0);
             }
         } catch (DataAccessException e) {
@@ -69,73 +65,21 @@ public class DaoCredentialsImpl implements DaoCredentials {
     }
 
     @Override
-    public boolean activateCredential(DriverCredential credential) {
-        try {
-            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            Boolean isSuitable = jdbcTemplate.queryForObject(QueryStrings.GET_ACTIVATION_DATE_SUITABILITY, Boolean.class, credential.getActivationDate(), credential.getActivationDate(), credential.getActivationCode(), credential.getEmail());
-            if (isSuitable == null) {
-                throw new ActivationFailedException(Constants.ACTIVATION_FAILED);
-            } else if (!isSuitable) {
-                throw new ActivationFailedException(Constants.ACTIVATION_LINK_EXPIRED);
-            } else {
-                jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-                jdbcTemplate.update(QueryStrings.ACTIVATE_CREDENTIAL, credential.getActivationCode(), credential.getEmail());
-            }
-        } catch (DataAccessException e) {
-            if (e.getCause() instanceof SQLException) {
-                throw new ActivationFailedException(Constants.ACTIVATION_FAILED);
-            }
-        }
-        return true;
-    }
-
-    @Override
     public boolean update(DriverCredential credential) {
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
             int rowsUpdated = jdbcTemplate.update(QueryStrings.UPDATE_CREDENTIAL, credential.getUsername(), credential.getPassword(), credential.getEmail(), credential.isActivated(), credential.getActivationDate(), credential.getActivationCode(), credential.getRole().getRoleId(), credential.getId());
             if (rowsUpdated == 0) {
-                throw new ActivationFailedException(Constants.UPDATE_FAILED);
+                throw new ActivationFailedException(Constants.UPDATE_FAILED_CREDENTIAL);
             }
         } catch (DataAccessException e) {
             if (e.getCause() instanceof SQLException) {
-                throw new ActivationFailedException(Constants.UPDATE_FAILED);
+                throw new ActivationFailedException(Constants.UPDATE_FAILED_CREDENTIAL);
             } else {
                 throw new ActivationFailedException(Constants.INTERNAL_SERVER_ERROR);
             }
         }
         return true;
     }
-
-    @Override
-    public boolean verifyCredential(DriverCredential credential) {
-        try {
-            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            List<DriverCredential> credentials = jdbcTemplate.query(QueryStrings.VERIFY_CREDENTIAL, new CredentialMapper(), credential.getId(), credential.getRole().getRoleId());
-
-            if (credentials.isEmpty()) {
-                throw new AuthenticationFailedException(Constants.AUTHENTICATION_FAILED);
-            } else {
-                DriverCredential firstCredential = credentials.get(0);
-
-                if(firstCredential.getRole().getRoleId() != credential.getRole().getRoleId()) {
-                    throw new AuthenticationFailedException(Constants.AUTHENTICATION_FAILED);
-                }
-
-                if (firstCredential != null && !firstCredential.isActivated()) {
-                    throw new AccountNotActivatedException(Constants.ACCOUNT_NOT_ACTIVATED);
-                }
-
-                return true;
-            }
-        } catch (DataAccessException e) {
-            if (e.getCause() instanceof SQLException) {
-                throw new ConnectionFailedException(Constants.CONNECTION_TO_DATABASE_FAILED);
-            }
-        }
-        return false;
-    }
-
-
 
 }

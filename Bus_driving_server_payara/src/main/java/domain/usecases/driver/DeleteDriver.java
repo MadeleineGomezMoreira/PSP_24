@@ -1,7 +1,6 @@
 package domain.usecases.driver;
 
 import common.Constants;
-
 import data.dao.impl.DaoDriversImpl;
 import domain.exception.DriverValidationException;
 import domain.model.BusDriver;

@@ -9,6 +9,6 @@ POST {{urlbase}}/login
 Content-Type: application/json
 
 {
-  "username": {{unactivatedDriverUsername}},
-  "password": {{unactivatedDriverPassword}}
+  "username": "{{unactivatedDriverUsername}}",
+  "password": "{{unactivatedDriverPassword}}"
 }

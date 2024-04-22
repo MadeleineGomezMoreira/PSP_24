@@ -1,7 +1,6 @@
 package data.dao.mappers;
 
 import common.DbConstants;
-import domain.model.BusLine;
 import domain.model.BusStop;
 import domain.model.Point;
 import org.springframework.jdbc.core.RowMapper;

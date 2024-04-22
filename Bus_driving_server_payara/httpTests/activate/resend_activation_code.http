@@ -5,4 +5,4 @@
 
 ###
 # @name resendActivationCode
-PUT {{urlbase}}/resend-code?email={{resendCodeEmail}}}
+PUT {{urlbase}}/activate/resend-code?email={{resendCodeEmail}}

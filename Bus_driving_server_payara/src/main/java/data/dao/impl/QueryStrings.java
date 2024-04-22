@@ -6,6 +6,7 @@ public class QueryStrings {
     }
 
     //BUS-DRIVER DAO
+    //TODO: poner esto como un inner join
     public static final String GET_ALL_DRIVERS_WITH_LINES = "SELECT d.*, l.* FROM bus_driver d JOIN bus_line l ON d.assigned_bus_line = l.id_bus_line";
     public static final String GET_DRIVER_BY_ID_WITH_BUS_LINE = "SELECT * FROM bus_driver d JOIN bus_line l ON d.assigned_bus_line = l.id_bus_line where id_bus_driver = ?";
     public static final String INSERT_DRIVER = "INSERT INTO bus_driver (driver_first_name, driver_last_name, driver_phone, driver_email, assigned_bus_line) VALUES (?, ?, ?, ?, ?)";

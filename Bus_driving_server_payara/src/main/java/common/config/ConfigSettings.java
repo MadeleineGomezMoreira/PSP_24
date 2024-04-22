@@ -18,6 +18,9 @@ public class ConfigSettings {
     private String dbUser;
     private String dbPassword;
     private String dbDriver;
+    private String emailHost;
+    private String emailUser;
+    private String emailPassword;
 
     public ConfigSettings() {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
@@ -28,6 +31,9 @@ public class ConfigSettings {
             dbUser = node.get(Constants.DB_USER).asText();
             dbPassword = node.get(Constants.DB_PASSWORD).asText();
             dbDriver = node.get(Constants.DB_DRIVER).asText();
+            emailHost = node.get(Constants.EMAIL_HOST).asText();
+            emailUser = node.get(Constants.EMAIL_USER).asText();
+            emailPassword = node.get(Constants.EMAIL_PASSWORD).asText();
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
