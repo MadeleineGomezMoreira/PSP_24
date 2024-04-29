@@ -1,11 +1,8 @@
 #bus_driving_server_payara
 
 ###
-@urlbase =http://localhost:8085/Bus_driving_server_payara-1.0-SNAPSHOT/api
-
-###
 # @name loginUnactivatedDriver
-POST {{urlbase}}/login
+POST {{urlBase}}/login
 Content-Type: application/json
 
 {
