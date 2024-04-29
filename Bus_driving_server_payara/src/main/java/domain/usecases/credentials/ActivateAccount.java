@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
 public class ActivateAccount {
@@ -28,25 +29,22 @@ public class ActivateAccount {
             throw new AccountAlreadyActivatedException(Constants.ACCOUNT_ALREADY_ACTIVATED);
         }
 
-        try {
+        //check if the activation code is suitable (not expired) - expires 5 minutes after creation
+        //check against now() = java.time.LocalDateTime.now()
+        //check against activationDate + 2 hours (because of the time difference in the mysql database)
+        LocalDateTime activationDate = c.getActivationDate().plusHours(2);
+        String decodedActivationCode = URLDecoder.decode(activationCode, StandardCharsets.UTF_8);
+        //replace any spaces in the activation code for "+"
+        decodedActivationCode = decodedActivationCode.replace(" ", "+");
+        boolean codeIsExpired = activationDate.plusMinutes(5).isBefore(LocalDateTime.now());
+        boolean codeIsCorrect = decodedActivationCode.equals(activationCode);
 
-            //check if the activation code is suitable (not expired) - expires 5 minutes after creation
-            //check against now() = java.time.LocalDateTime.now()
-            //check against activationDate + 2 hours (because of the time difference in the mysql database)
-            LocalDateTime activationDate = c.getActivationDate().plusHours(2);
-            String decodedActivationCode = URLDecoder.decode(activationCode, "UTF-8");
-            boolean codeIsExpired = activationDate.plusMinutes(5).isBefore(java.time.LocalDateTime.now());
-            boolean codeIsCorrect = decodedActivationCode.equals(activationCode);
-
-            if (!codeIsExpired && codeIsCorrect) {
-                //activate the account
-                c.setActivated(true);
-                return dao.update(c);
-            } else {
-                return false;
-            }
-        } catch (UnsupportedEncodingException e) {
-            throw new ActivationFailedException(Constants.ACTIVATION_FAILED_ENCODING_ERROR);
+        if (!codeIsExpired && codeIsCorrect) {
+            //activate the account
+            c.setActivated(true);
+            return dao.update(c);
+        } else {
+            return false;
         }
     }
 }

@@ -11,6 +11,7 @@ public class Constants {
     public static final String REGISTER_PATH = "/register";
     public static final String DRIVERS_PATH = "/drivers";
     public static final String ID_PARAM_PATH = "/{id}";
+    public static final String GET_DRIVER_ID_BY_USERNAME_PATH = "/username/{username}";
     public static final String DELETE_DRIVER_PATH = "/delete/{id}";
     public static final String LINES_PATH = "/lines";
     public static final String GET_STOP_PATH = "/stop/{id}";
@@ -28,11 +29,12 @@ public class Constants {
 
     //STRING MESSAGES
     public static final String REGISTRATION_WAS_SUCCESSFUL = "Registration was successful. Please check your email to activate your account.";
+    public static final String ACTIVATION_WAS_SUCCESSFUL = "Activation was successful. You can now log into your account.";
     public static final String CLICK_LINK_TO_ACTIVATE_ACCOUNT = "Welcome to the system! Click on this link to activate your account:";
     public static final String ACTIVATE_YOUR_ACCOUNT = "Activate your account - Bus Driving App";
 
     //LINK PATHS
-    public static final String ACTIVATE_ACCOUNT_LINK = "http://localhost:8085/server-1.0-SNAPSHOT/api/activate?";
+    public static final String ACTIVATE_ACCOUNT_LINK = "http://localhost:8085/Bus_driving_server_payara-1.0-SNAPSHOT/api/activate?";
 
     //ERROR MESSAGES
     public static final String VALIDATION_FAILED_ERROR = "Validation failed. Please provide all required fields.";
@@ -71,6 +73,7 @@ public class Constants {
 
     //JAKARTA CONSTANTS
     public static final String ID = "id";
+    public static final String USERNAME = "username";
 
     //CONFIG EMAIL
     public static final int MAIL_PORT_NUM = 587;

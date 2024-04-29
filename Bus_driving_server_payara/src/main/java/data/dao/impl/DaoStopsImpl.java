@@ -54,4 +54,21 @@ public class DaoStopsImpl implements data.dao.DaoStops {
         }
         return busStops;
     }
+
+    //get a specific bus stop
+    @Override
+    public BusStop get(BusStop busStop) {
+        int busStopId = busStop.getId();
+        BusStop stop;
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            stop = jdbcTemplate.queryForObject(QueryStrings.GET_STOP_BY_ID, new BusStopMapper(), busStopId);
+            if (stop == null) {
+                throw new NotFoundException(Constants.DATA_RETRIEVAL_ERROR_EMPTY_DATA_SOURCE);
+            }
+        } catch (DataAccessException e) {
+            throw new ConnectionFailedException(Constants.CONNECTION_TO_DATABASE_FAILED);
+        }
+        return stop;
+    }
 }

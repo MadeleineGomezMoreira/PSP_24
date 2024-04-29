@@ -1,6 +1,6 @@
 package domain.usecases.busline;
 
-import data.dao.impl.DaoLinesImpl;
+import data.dao.DaoLines;
 import domain.model.BusLine;
 import jakarta.inject.Inject;
 
@@ -8,10 +8,10 @@ import java.util.List;
 
 public class GetLines {
 
-    private final DaoLinesImpl dao;
+    private final DaoLines dao;
 
     @Inject
-    public GetLines(DaoLinesImpl dao) {
+    public GetLines(DaoLines dao) {
         this.dao = dao;
     }
 

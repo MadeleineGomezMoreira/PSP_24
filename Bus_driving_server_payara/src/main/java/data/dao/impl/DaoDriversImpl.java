@@ -15,6 +15,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -69,6 +70,27 @@ public class DaoDriversImpl implements DaoDrivers {
             }
         }
         return result;
+    }
+
+    @Override
+    public Integer getId(BusDriver driver) {
+        int driverId = -1;
+        try {
+            String username = driver.getFirstName();
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            List<Integer> intResult = jdbcTemplate.query(QueryStrings.GET_DRIVER_ID_BY_USERNAME, new SingleColumnRowMapper<>(Integer.class), username);
+            if (intResult == null || intResult.isEmpty()) {
+                throw new NotFoundException(Constants.DATA_RETRIEVAL_ERROR_NOT_FOUND);
+            }
+            driverId = intResult.get(0);
+        } catch (EmptyResultDataAccessException e) {
+            throw new NotFoundException(Constants.DATA_RETRIEVAL_ERROR_NOT_FOUND);
+        } catch (DataAccessException e) {
+            if (e.getCause() instanceof SQLException) {
+                throw new ConnectionFailedException(Constants.CONNECTION_TO_DATABASE_FAILED);
+            }
+        }
+        return driverId;
     }
 
     @Override

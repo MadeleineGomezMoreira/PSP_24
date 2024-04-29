@@ -9,6 +9,7 @@ public class QueryStrings {
     //TODO: poner esto como un inner join
     public static final String GET_ALL_DRIVERS_WITH_LINES = "SELECT d.*, l.* FROM bus_driver d JOIN bus_line l ON d.assigned_bus_line = l.id_bus_line";
     public static final String GET_DRIVER_BY_ID_WITH_BUS_LINE = "SELECT * FROM bus_driver d JOIN bus_line l ON d.assigned_bus_line = l.id_bus_line where id_bus_driver = ?";
+    public static final String GET_DRIVER_ID_BY_USERNAME = "SELECT bd.id_bus_driver FROM bus_driver bd JOIN driver_credentials dc ON bd.id_bus_driver = dc.credential_id WHERE dc.username = ?";
     public static final String INSERT_DRIVER = "INSERT INTO bus_driver (driver_first_name, driver_last_name, driver_phone, driver_email, assigned_bus_line) VALUES (?, ?, ?, ?, ?)";
     public static final String UPDATE_DRIVER = "UPDATE bus_driver SET driver_first_name = ?, driver_last_name = ?, driver_phone = ?, assigned_bus_line = ? WHERE id_bus_driver = ?";
     public static final String DELETE_DRIVER = "DELETE FROM bus_driver WHERE id_bus_driver = ?";
@@ -22,9 +23,9 @@ public class QueryStrings {
     public static final String DELETE_LINE = "DELETE FROM bus_line WHERE id_bus_line = ?";
 
     //BUS-STOP DAO
-    public static final String GET_ALL_STOPS = "SELECT * FROM bus_stop";
-    public static final String GET_ALL_STOPS_IN_A_LINE = "SELECT * FROM bus_stop bs JOIN line_stops ls ON bs.id_bus_stop = ls.id_stop WHERE ls.id_line = ?;";
-    public static final String GET_STOP_BY_ID = "SELECT * FROM bus_stop where id_bus_stop = ?";
+    public static final String GET_ALL_STOPS = "SELECT ST_X(bs.stop_coordinate) as x_coordinate, ST_Y(bs.stop_coordinate) as y_coordinate, bs.* FROM bus_stop bs";
+    public static final String GET_ALL_STOPS_IN_A_LINE = "SELECT ST_X(bs.stop_coordinate) as x_coordinate, ST_Y(bs.stop_coordinate) as y_coordinate, bs.* FROM bus_stop bs JOIN line_stops ls ON bs.id_bus_stop = ls.id_stop WHERE ls.id_line = ?;";
+    public static final String GET_STOP_BY_ID = "SELECT ST_X(bs.stop_coordinate) as x_coordinate, ST_Y(bs.stop_coordinate) as y_coordinate, bs.* FROM bus_stop bs where bs.id_bus_stop = ?";
     public static final String INSERT_STOP = "INSERT INTO bus_stop (id_bus_stop, stop_name, stop_coordinate) VALUES (?, ?, ?)";
     public static final String UPDATE_STOP = "UPDATE bus_stop SET id_bus_stop = ?, stop_name = ?, stop_coordinate = ? WHERE id_bus_stop = ?";
     public static final String DELETE_STOP = "DELETE FROM bus_stop WHERE id_bus_stop = ?";

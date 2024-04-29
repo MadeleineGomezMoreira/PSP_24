@@ -12,6 +12,7 @@ Content-Type: application/json
   "username": "{{activatedDriverUsername}}",
   "password": "{{activatedDriverPassword}}"
 }
+
 ###
 # @name getAllStops
 GET {{urlbase}}/stops

@@ -19,13 +19,11 @@ import jakarta.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 public class RegisterController {
 
-    private final Pbkdf2PasswordHash passwordHash;
     private final RegisterDriver save;
     private final SendActivationEmail sendActivationEmail;
 
     @Inject
-    public RegisterController(Pbkdf2PasswordHash passwordHash, RegisterDriver save, SendActivationEmail sendActivationEmail) {
-        this.passwordHash = passwordHash;
+    public RegisterController(RegisterDriver save, SendActivationEmail sendActivationEmail) {
         this.save = save;
         this.sendActivationEmail = sendActivationEmail;
     }

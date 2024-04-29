@@ -28,13 +28,13 @@ public class LoginAndGetRole {
 
         boolean isPasswordCorrect = passwordHash.verify(inputPassword.toCharArray(), storedPasswordWithSalt);
 
-        if(!isPasswordCorrect){
+        if (!isPasswordCorrect) {
             throw new AuthenticationFailedException(Constants.AUTHENTICATION_FAILED_PASSWORD_ERROR);
         }
 
         if (!credential.isActivated()) {
             throw new AccountNotActivatedException(Constants.ACCOUNT_NOT_ACTIVATED);
-        } else{
+        } else {
             return credential.getRole().getRoleName();
         }
     }

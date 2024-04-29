@@ -15,6 +15,10 @@ public class BusDriver {
     public BusDriver() {
     }
 
+    public BusDriver(String firstName) {
+        this.firstName = firstName;
+    }
+
     public BusDriver(int id, String firstName, String lastName, String phone, BusLine assignedLine) {
         this.id = id;
         this.firstName = firstName;

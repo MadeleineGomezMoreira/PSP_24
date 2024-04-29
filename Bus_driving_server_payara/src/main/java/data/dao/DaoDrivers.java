@@ -9,6 +9,8 @@ public interface DaoDrivers {
 
     BusDriver get(BusDriver driver);
 
+    Integer getId(BusDriver driver);
+
     BusDriver update(BusDriver driver);
 
     boolean delete(BusDriver driver);

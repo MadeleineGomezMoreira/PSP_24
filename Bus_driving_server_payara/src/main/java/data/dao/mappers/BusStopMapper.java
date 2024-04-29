@@ -15,8 +15,23 @@ public class BusStopMapper implements RowMapper<BusStop> {
         BusStop bs = new BusStop();
         bs.setId(rs.getInt(DbConstants.STOP_ID));
         bs.setName(rs.getString(DbConstants.STOP_NAME));
-        byte[] coordinateBytes = rs.getBytes(DbConstants.STOP_COORDINATE);
-        bs.setLocation(Point.fromByteArray(coordinateBytes));
+        double xCoordinate = rs.getDouble("x_coordinate");
+        double yCoordinate = rs.getDouble("y_coordinate");
+        bs.setLocation(new Point(xCoordinate, yCoordinate));
         return bs;
     }
+
+    //myResultSet.getDouble("x_coordinate");
+    //myResultSet.getDouble("y_coordinate");
+
+//    @Override
+//    public BusStop mapRow(ResultSet rs, int rowNum) throws SQLException {
+//        BusStop bs = new BusStop();
+//        bs.setId(rs.getInt(DbConstants.STOP_ID));
+//        bs.setName(rs.getString(DbConstants.STOP_NAME));
+//        Point location = (Point) rs.getObject(DbConstants.STOP_COORDINATE);
+//        bs.setLocation(location);
+//        return bs;
+//    }
 }
+

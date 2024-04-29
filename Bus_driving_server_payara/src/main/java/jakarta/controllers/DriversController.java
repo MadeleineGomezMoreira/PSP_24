@@ -23,15 +23,17 @@ public class DriversController {
     private final SaveDriver save;
     private final DeleteDriver delete;
     private final UpdateDriver update;
+    private final GetDriverIdByUsername getDriverIdByUsername;
     private final Pbkdf2PasswordHash passwordHash;
 
     @Inject
-    public DriversController(GetAllDrivers getAll, GetDriverById getById, SaveDriver save, DeleteDriver delete, UpdateDriver update, Pbkdf2PasswordHash passwordHash) {
+    public DriversController(GetAllDrivers getAll, GetDriverById getById, SaveDriver save, DeleteDriver delete, UpdateDriver update, GetDriverIdByUsername getDriverIdByUsername, Pbkdf2PasswordHash passwordHash) {
         this.getAll = getAll;
         this.getById = getById;
         this.save = save;
         this.delete = delete;
         this.update = update;
+        this.getDriverIdByUsername = getDriverIdByUsername;
         this.passwordHash = passwordHash;
     }
 
@@ -47,6 +49,14 @@ public class DriversController {
     @Produces(MediaType.APPLICATION_JSON)
     public BusDriver getDriver(@PathParam(Constants.ID) int id) {
         return getById.get(id);
+    }
+
+    @GET
+    @RoleUser
+    @Path(Constants.GET_DRIVER_ID_BY_USERNAME_PATH)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Integer getDriverId(@PathParam(Constants.USERNAME) String username) {
+        return getDriverIdByUsername.getDriverIdByUsername(username);
     }
 
     @PUT

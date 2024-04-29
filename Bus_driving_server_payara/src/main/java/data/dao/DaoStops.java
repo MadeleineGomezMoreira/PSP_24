@@ -10,4 +10,7 @@ public interface DaoStops {
 
     //get all bus stops
     List<BusStop> getAll();
+
+    //get a specific bus stop
+    BusStop get(BusStop busStop);
 }

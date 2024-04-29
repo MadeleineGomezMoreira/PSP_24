@@ -9,21 +9,25 @@ import domain.model.BusDriver;
 import domain.model.BusLine;
 import domain.model.DriverCredential;
 import jakarta.inject.Inject;
+import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
 
 public class RegisterDriver {
 
     private final DaoDrivers dao;
     private final DaoLines daoLines;
+    private final Pbkdf2PasswordHash passwordHash;
 
     @Inject
-    public RegisterDriver(DaoDrivers dao, DaoLines daoLines) {
+    public RegisterDriver(DaoDrivers dao, DaoLines daoLines, Pbkdf2PasswordHash passwordHash) {
         this.dao = dao;
         this.daoLines = daoLines;
+        this.passwordHash = passwordHash;
     }
 
     public BusDriver registerDriver(RegisterDTO driver) {
         if (driver != null) {
-            //we create a bus driver object from the dto
+            String hashedPassword = (passwordHash.generate(driver.getPassword().toCharArray()));
+
             BusLine busLine = daoLines.get(new BusLine(0));
 
             BusDriver busDriver = new BusDriver();
@@ -34,7 +38,7 @@ public class RegisterDriver {
             busDriver.setPhone(driver.getPhone());
             credential.setEmail(driver.getEmail());
             credential.setUsername(driver.getUsername());
-            credential.setPassword(driver.getPassword());
+            credential.setPassword(hashedPassword);
             credential.setActivationCode(driver.getActivationCode());
             credential.setActivationDate(driver.getActivationDate());
             busDriver.setCredential(credential);

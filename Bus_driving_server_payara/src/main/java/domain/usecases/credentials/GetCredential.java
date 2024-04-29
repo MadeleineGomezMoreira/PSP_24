@@ -19,7 +19,7 @@ public class GetCredential {
         DriverCredential credential = dao.getCredential(new DriverCredential(username));
         if (!credential.isActivated()) {
             throw new AccountNotActivatedException(Constants.ACCOUNT_NOT_ACTIVATED);
-        } else{
+        } else {
             return credential;
         }
     }

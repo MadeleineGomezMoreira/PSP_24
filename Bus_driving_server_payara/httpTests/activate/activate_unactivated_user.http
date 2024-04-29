@@ -7,4 +7,5 @@
 
 ###
 # @name activateUnactivatedAccount
-GET {{urlbase}}/activate?email={{unactivatedAccountEmail}}&code={{unactivatedAccountCode}}
+GET {{urlbase}}/activate?email=tosigether598@gmail.com&code=5s8TqlVUwWhJ298mbJGRFVOUTzaSDqf08UVIVOd06Iw%3D
+
