@@ -1,0 +1,15 @@
+#bus_driving_server_payara
+
+###
+# @name register
+POST {{urlBase}}/register
+Content-Type: application/json
+
+{
+  "firstName": "Elena",
+  "lastName": "Delgado",
+  "phone": "627389512",
+  "username": "u1",
+  "password": "p1",
+  "email": "eDelgado99@gmail.com"
+}

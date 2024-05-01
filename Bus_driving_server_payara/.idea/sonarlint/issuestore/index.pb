@@ -129,12 +129,6 @@ P
  httpTests/login/login_admin.http,4\6\46981816c341dafe2b2f1ec3ff3dec130ecd2627
 V
 &httpTests/drivers/get_all_drivers.http,2\b\2b431c3308f31f099e306934df0bb4c17b16910a
-_
-/httpTests/activate/activate_activated_user.http,b\6\b646f04650b039d16bccbcce528acab30b352bb9
-^
-.httpTests/activate/resend_activation_code.http,9\6\965331644829049a78c6fb39ced8ceb3fd6b5b87
-a
-1httpTests/activate/activate_unactivated_user.http,2\6\26aa2ad3ca2888048dc1df313d71520903dabb7b
 W
 'httpTests/drivers/get_driver_by_id.http,8\6\86c4c806e14999f7804284bdcc740c67448a668b
 R
@@ -199,5 +193,3 @@ p
 @src/main/java/jakarta/error/mappers/NotFoundExceptionMapper.java,4\4\44be866fadd260cce3c0665060d3c05176c9f907
 t
 Dsrc/main/java/jakarta/error/mappers/UpdateFailedExceptionMapper.java,e\9\e9241b9b2c36e8d9da33fdf7238e25fe5a3eea1c
-h
-8src/main/java/jakarta/javascript/resendActivationLink.js,c\b\cb68da762da633806f7232a6942208a335015232

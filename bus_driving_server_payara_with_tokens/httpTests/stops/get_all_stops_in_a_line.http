@@ -1,0 +1,17 @@
+#bus_driving_server_payara
+
+###
+# @name loginActivatedDriver
+POST {{urlBase}}/login
+Content-Type: application/json
+
+{
+  "username": "{{activatedDriverUsername}}",
+  "password": "{{activatedDriverPassword}}"
+}
+
+###
+# @name getAllStopsInALine
+GET {{urlBase}}/stops/line/100
+
+

@@ -1,0 +1,10 @@
+#bus_driving_server_payara
+
+# @name loginAdmin
+POST {{urlBase}}/login
+Content-Type: application/json
+
+{
+  "username": "{{adminUsername}}",
+  "password": "{{adminPassword}}"
+}
