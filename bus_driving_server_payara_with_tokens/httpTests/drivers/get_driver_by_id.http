@@ -1,4 +1,4 @@
-#bus_driving_server_payara
+#bus_driving_server_payara_with_tokens
 
 ###
 # @name loginActivatedDriver
@@ -9,7 +9,13 @@ Content-Type: application/json
   "username": "{{activatedDriverUsername}}",
   "password": "{{activatedDriverPassword}}"
 }
+> {%
+    client.global.set("access_token", response.headers.valueOf("Authorization"));
+    client.global.set("refresh_token", response.headers.valueOf("Refresh"));
+%}
+
 
 ###
 # @name getDriver
 GET {{urlBase}}/drivers/13
+Authorization: {{access_token}}

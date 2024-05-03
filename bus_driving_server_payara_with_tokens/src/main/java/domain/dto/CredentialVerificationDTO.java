@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class CredentialVerificationDTO {
 
     private String username;
-    private AccountRole role;
+    private String role;
 }

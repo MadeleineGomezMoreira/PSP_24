@@ -51,7 +51,7 @@ public class TokenGenerator {
             if (expiryDate != null && expiryDate.after(Date.from(Instant.now()))) {
                 //we generate the new tokens
                 SecretKey key = keyProvider.key();
-                String newAccessToken = generateAccessToken(username, role, key);
+                String newAccessToken = generateAccessTokenWithRefresh(username, role, key);
                 String newRefreshToken = generateRefreshToken(username, role, key);
                 return new TokenPair(newAccessToken, newRefreshToken);
             }
@@ -81,6 +81,17 @@ public class TokenGenerator {
                 .signWith(key).compact();
     }
 
+    private String generateAccessTokenWithRefresh(String username, String role, SecretKey key) {
+        //we won't encode the role again, as it is received as an already encoded String from the refresh token
+
+        return Jwts.builder()
+                .subject(username)
+                .expiration(Date.from(LocalDateTime.now().plusSeconds(Constants.ACCESS_TOKEN_EXPIRATION_SECONDS).atZone(ZoneId.systemDefault()).toInstant()))
+                .claim(Constants.USER_LOWER_CASE, username)
+                .claim(Constants.ROLE_LOWER_CASE, role)
+                .signWith(key).compact();
+    }
+
     private String generateRefreshToken(String username, String role, SecretKey key) {
         byte[] bytes = role.getBytes(StandardCharsets.UTF_8);
         String roleEncoded = Encoders.BASE64.encode(bytes);
@@ -92,21 +103,4 @@ public class TokenGenerator {
                 .claim(Constants.ROLE_LOWER_CASE, roleEncoded)
                 .signWith(key).compact();
     }
-
-
-//    public String createJWT(String username, String role) {
-//        SecretKey key = keyProvider.key();
-//
-//        byte[] bytes = role.getBytes(StandardCharsets.UTF_8);
-//        String roleEncoded = Encoders.BASE64.encode(bytes);
-//
-//        return Jwts.builder()
-//                .subject(username)
-//                .expiration(Date
-//                        .from(LocalDateTime.now().plusSeconds(1000).atZone(ZoneId.systemDefault())
-//                                .toInstant()))
-//                .claim(Constants.USER_LOWER_CASE, username)
-//                .claim(Constants.ROLE_LOWER_CASE, roleEncoded)
-//                .signWith(key).compact();
-//    }
 }

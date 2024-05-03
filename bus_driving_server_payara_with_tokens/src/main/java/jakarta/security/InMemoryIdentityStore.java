@@ -52,24 +52,21 @@ public class InMemoryIdentityStore implements IdentityStore {
                 Jws<Claims> jws = Jwts.parser()
                         .verifyWith(keyProvider.key())
                         .build()
-                        //should I use this or 'parseUnsecuredClaims'?
                         .parseSignedClaims(authToken);
 
-                String username = (jws.getPayload().getSubject());
+                String username = jws.getPayload().getSubject();
                 String roleEncoded = jws.getPayload().get(Constants.ROLE_LOWER_CASE, String.class);
 
-                byte[] bytes;
-                bytes = Decoders.BASE64.decode(roleEncoded);
-                String json = new String(bytes, StandardCharsets.UTF_8);
-                ObjectMapper objectMapper = new ObjectMapper();
-                AccountRole role = objectMapper.readValue(json, AccountRole.class);
+                // Decode the role from Base64
+                byte[] bytes = Decoders.BASE64.decode(roleEncoded);
+                String role = new String(bytes, StandardCharsets.UTF_8);
 
                 CredentialVerificationDTO tokenCredential = new CredentialVerificationDTO(username, role);
 
                 //verify user's role
                 verify.verifyRole(tokenCredential);
                 //if there are no exceptions, we will return the CredentialValidationResult with the role
-                return new CredentialValidationResult(Constants.ROLE_LOWER_CASE, Collections.singleton(tokenCredential.getRole().getRoleName()));
+                return new CredentialValidationResult(Constants.ROLE_LOWER_CASE, Collections.singleton(tokenCredential.getRole()));
 
             } catch (ExpiredJwtException e) {
                 throw new TokenExpiredException(Constants.TOKEN_EXPIRED);

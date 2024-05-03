@@ -18,7 +18,7 @@ public class Constants {
     public static final String EMPTY_PATH = "";
     public static final String LOGIN_PATH = "/login";
     public static final String LOGOFF_PATH = "/logoff";
-    public static final String REFRESH_TOKEN_PATH = "/refresh-token";
+    public static final String REFRESH_TOKEN_PATH = "/refresh";
     public static final String STOPS_PATH = "/stops";
     public static final String GET_STOPS_IN_LINE_PATH = "/line/{id}";
     public static final String APP_PATH = "/api";
@@ -68,6 +68,7 @@ public class Constants {
     public static final String AUTHENTICATION_FAILED_EMAIL_ERROR = "Authentication failed. No user found with this email.";
     public static final String TOKEN_EXPIRED = "The session has expired. Please log in again.";
     public static final String INVALID_TOKEN = "Invalid refresh token. Please log in again.";
+    public static final String INVALID_KEY = "Invalid key. Please try again.";
 
     //ROLE STRINGS
 
@@ -86,9 +87,10 @@ public class Constants {
     //TOKEN STRINGS
     public static final String ROLE_LOWER_CASE = "role";
     public static final String USER_LOWER_CASE = "user";
-    public static final String BEARER = "Bearer";
+    public static final String BEARER = "Bearer ";
+    public static final String BEARER_NO_SPACE = "Bearer";
     public static final String AUTHORIZATION = "Authorization";
-    public static final String REFRESH_TOKEN = "Refresh-Token";
+    public static final String REFRESH_TOKEN = "Refresh";
     public static final String LOGOUT = "Logout";
     public static final String JWT = "JWT";
     public static final int ACCESS_TOKEN_EXPIRATION_SECONDS = 300;
@@ -127,6 +129,9 @@ public class Constants {
 
     //YAML CONFIG PATH
     public static final String YAML_JDBC_CONFIG_FILE_PATH = "config/config.yaml";
+
+    //CONFIG KEY
+    public static final String SECRET_KEY = "secretKey";
 
 
 }

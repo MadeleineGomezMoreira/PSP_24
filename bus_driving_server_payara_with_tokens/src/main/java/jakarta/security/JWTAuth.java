@@ -33,7 +33,7 @@ public class JWTAuth implements HttpAuthenticationMechanism {
         if (header != null) {
             String[] values = header.split(Constants.BLANK_SPACE);
 
-            if (values[0].equalsIgnoreCase(Constants.BEARER)) {
+            if (values[0].equalsIgnoreCase(Constants.BEARER_NO_SPACE)) {
 
                 c = identity.validate(new RememberMeCredential(values[1]));
 

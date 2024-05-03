@@ -19,7 +19,7 @@ public class VerifyDriverRole {
     public void verifyRole(CredentialVerificationDTO credential) {
         DriverCredential driverCredential = dao.getCredential(new DriverCredential(credential.getUsername()));
 
-        if (!driverCredential.getRole().getRoleName().equals(credential.getRole().getRoleName())) {
+        if (!driverCredential.getRole().getRoleName().equals(credential.getRole())) {
             throw new RoleValidationException(Constants.ACCESS_DENIED_INCORRECT_ROLE);
         }
     }

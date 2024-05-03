@@ -1,4 +1,4 @@
-#bus_driving_server_payara
+#bus_driving_server_payara_with_tokens
 
 # @name loginAdmin
 POST {{urlBase}}/login
@@ -8,3 +8,8 @@ Content-Type: application/json
   "username": "{{adminUsername}}",
   "password": "{{adminPassword}}"
 }
+> {%
+    client.global.set("access_token", response.headers.valueOf("Authorization"));
+    client.global.set("refresh_token", response.headers.valueOf("Refresh"));
+%}
+

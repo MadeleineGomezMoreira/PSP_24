@@ -35,6 +35,7 @@ public class ConfigSettings {
             emailHost = node.get(Constants.EMAIL_HOST).asText();
             emailUser = node.get(Constants.EMAIL_USER).asText();
             emailPassword = node.get(Constants.EMAIL_PASSWORD).asText();
+            secretKey = node.get(Constants.SECRET_KEY).asText();
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }

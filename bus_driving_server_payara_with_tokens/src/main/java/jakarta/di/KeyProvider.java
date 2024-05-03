@@ -2,6 +2,7 @@ package jakarta.di;
 
 import common.Constants;
 import common.config.ConfigSettings;
+import domain.exception.InvalidKeyException;
 import io.jsonwebtoken.security.Keys;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
@@ -39,8 +40,7 @@ public class KeyProvider {
 
             return Keys.hmacShaKeyFor(key2.getEncoded());
         } catch (NoSuchAlgorithmException e) {
-            //TODO: change to custom exception
-            throw new RuntimeException(e);
+            throw new InvalidKeyException(Constants.INVALID_KEY);
         }
     }
 }

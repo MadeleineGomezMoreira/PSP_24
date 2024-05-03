@@ -35,7 +35,7 @@ public class LoginController {
 
         TokenPair tokenPair = tokenGenerator.generateTokens(username, role);
 
-        //I will return the tokens in different headers
+        //we will return the tokens in different headers
         return Response.ok()
                 .header(Constants.AUTHORIZATION, Constants.BEARER + tokenPair.getAccessToken())
                 .header(Constants.REFRESH_TOKEN, tokenPair.getRefreshToken())
@@ -54,10 +54,10 @@ public class LoginController {
     @Path(Constants.REFRESH_TOKEN_PATH)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response refreshToken(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
-        //I will extract the access and refresh tokens from the headers
-        String refreshToken = authorizationHeader.substring(Constants.BEARER.length()).trim();
+        //we will extract the refresh token from the header
+        String refreshToken = authorizationHeader;
 
-        //I will return both a new access token and a new refresh token
+        //we will return both a new access token and a new refresh token
         TokenPair tokenPair = tokenGenerator.refreshTokens(refreshToken);
 
         return Response.ok()
