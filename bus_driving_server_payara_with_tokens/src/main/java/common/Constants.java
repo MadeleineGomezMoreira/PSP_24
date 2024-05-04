@@ -36,7 +36,7 @@ public class Constants {
     public static final String LOGGING_OFF_WAS_SUCCESSFUL = "Logged out successfully.";
 
     //LINK PATHS
-    public static final String ACTIVATE_ACCOUNT_LINK = "http://localhost:8085/Bus_driving_server_payara-1.0-SNAPSHOT/api/activate?";
+    public static final String ACTIVATE_ACCOUNT_LINK = "http://http://localhost:8085/bus_driving_server_payara_with_tokens-1.0-SNAPSHOT/api/activate?";
 
     //ERROR MESSAGES
     public static final String VALIDATION_FAILED_ERROR = "Validation failed. Please provide all required fields.";
@@ -132,6 +132,9 @@ public class Constants {
 
     //CONFIG KEY
     public static final String SECRET_KEY = "secretKey";
+
+    //DOMAIN STRINGS
+    public static final String EMPTY_STRING = "";
 
 
 }

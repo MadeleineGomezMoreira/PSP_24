@@ -2,7 +2,6 @@ package domain.usecases.credentials;
 
 import common.Constants;
 import data.dao.DaoCredentials;
-import domain.dto.LoginDTO;
 import domain.exception.AccountNotActivatedException;
 import domain.exception.AuthenticationFailedException;
 import domain.model.DriverCredential;
@@ -20,7 +19,7 @@ public class LoginAndGetRole {
         this.passwordHash = passwordHash;
     }
 
-    public String login(LoginDTO loginData) {
+    public String login(DriverCredential loginData) {
         DriverCredential credential = dao.getCredential(new DriverCredential(loginData.getUsername()));
 
         String inputPassword = loginData.getPassword();

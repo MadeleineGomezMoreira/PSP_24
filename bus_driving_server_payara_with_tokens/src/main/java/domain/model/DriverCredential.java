@@ -29,6 +29,11 @@ public class DriverCredential {
         this.id = id;
     }
 
+    public DriverCredential(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public DriverCredential(String username) {
         this.username = username;
     }

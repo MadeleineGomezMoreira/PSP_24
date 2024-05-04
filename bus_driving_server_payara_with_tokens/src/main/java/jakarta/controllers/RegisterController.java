@@ -1,10 +1,11 @@
 package jakarta.controllers;
 
 import common.Constants;
-import domain.dto.RegisterDTO;
-import domain.usecases.driver.RegisterDriver;
+import jakarta.model.RegisterDTO;
+import domain.usecases.credentials.RegisterAccount;
 import domain.usecases.email.SendActivationEmail;
 import jakarta.inject.Inject;
+import jakarta.model.mappers.JakartaDataMappers;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -17,13 +18,15 @@ import jakarta.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 public class RegisterController {
 
-    private final RegisterDriver save;
+    private final RegisterAccount save;
     private final SendActivationEmail sendActivationEmail;
+    private final JakartaDataMappers dataMappers;
 
     @Inject
-    public RegisterController(RegisterDriver save, SendActivationEmail sendActivationEmail) {
+    public RegisterController(RegisterAccount save, SendActivationEmail sendActivationEmail, JakartaDataMappers dataMappers) {
         this.save = save;
         this.sendActivationEmail = sendActivationEmail;
+        this.dataMappers = dataMappers;
     }
 
     @POST
@@ -37,7 +40,7 @@ public class RegisterController {
 
         String email = driver.getEmail();
 
-        save.registerDriver(driver);
+        save.registerDriver(dataMappers.mapRegisterDTOToBusDriver(driver));
         sendActivationEmail.sendEmail(email);
 
         return Response.ok(Constants.REGISTRATION_WAS_SUCCESSFUL).build();

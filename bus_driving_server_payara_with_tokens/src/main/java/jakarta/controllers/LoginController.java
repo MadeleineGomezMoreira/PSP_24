@@ -1,11 +1,12 @@
 package jakarta.controllers;
 
 import common.Constants;
-import domain.dto.LoginDTO;
+import jakarta.model.LoginDTO;
 import domain.usecases.credentials.LoginAndGetRole;
 import jakarta.di.TokenGenerator;
 import jakarta.inject.Inject;
 import jakarta.model.TokenPair;
+import jakarta.model.mappers.JakartaDataMappers;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
@@ -18,19 +19,21 @@ public class LoginController {
 
     private final LoginAndGetRole loginAndGetRole;
     private final TokenGenerator tokenGenerator;
+    private final JakartaDataMappers dataMappers;
 
 
     @Inject
-    public LoginController(LoginAndGetRole loginAndGetRole, TokenGenerator tokenGenerator) {
+    public LoginController(LoginAndGetRole loginAndGetRole, TokenGenerator tokenGenerator, JakartaDataMappers dataMappers) {
         this.loginAndGetRole = loginAndGetRole;
         this.tokenGenerator = tokenGenerator;
+        this.dataMappers = dataMappers;
     }
 
     @POST
     @Path(Constants.LOGIN_PATH)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(LoginDTO credential) {
-        String role = loginAndGetRole.login(credential);
+        String role = loginAndGetRole.login(dataMappers.mapLoginDTOToDriverCredential(credential));
         String username = credential.getUsername();
 
         TokenPair tokenPair = tokenGenerator.generateTokens(username, role);
@@ -53,10 +56,7 @@ public class LoginController {
     @POST
     @Path(Constants.REFRESH_TOKEN_PATH)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response refreshToken(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
-        //we will extract the refresh token from the header
-        String refreshToken = authorizationHeader;
-
+    public Response refreshToken(@HeaderParam(HttpHeaders.AUTHORIZATION) String refreshToken) {
         //we will return both a new access token and a new refresh token
         TokenPair tokenPair = tokenGenerator.refreshTokens(refreshToken);
 

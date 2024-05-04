@@ -1,5 +1,6 @@
-package domain.dto;
+package jakarta.model;
 
+import common.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class RegisterDTO {
     private String email;
     private String username;
     private String password;
-    private String activationCode = "";
+    private String activationCode = Constants.EMPTY_STRING;
     private LocalDateTime activationDate = LocalDateTime.now();
     private boolean activated = false;
 

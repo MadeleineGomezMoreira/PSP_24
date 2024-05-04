@@ -1,4 +1,4 @@
-package domain.dto;
+package jakarta.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
