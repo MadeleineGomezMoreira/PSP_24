@@ -9,7 +9,7 @@ Content-Type: application/json
   "password": "{{adminPassword}}"
 }
 > {%
-    client.global.set("access_token", response.headers.valueOf("Authorization"));
-    client.global.set("refresh_token", response.headers.valueOf("Refresh"));
+    client.global.set("access_token", response.body.acessToken);
+    client.global.set("access_token", response.body.refreshToken);
 %}
 

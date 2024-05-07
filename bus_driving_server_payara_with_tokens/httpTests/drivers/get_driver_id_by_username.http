@@ -10,12 +10,12 @@ Content-Type: application/json
   "password": "{{adminPassword}}"
 }
 > {%
-    client.global.set("access_token", response.headers.get("Authorization"));
-    client.global.set("refresh_token", response.headers.get("Refresh"));
+    client.global.set("access_token", response.body.accessToken);
+    client.global.set("refresh_token", response.body.refreshToken);
 %}
 
 ###
 # @name getDriverIdByUsername
 GET {{urlBase}}/drivers/username/{{driverUsername}}
-Authorization: {{access_token}}
+Authorization: Bearer {{access_token}}
 

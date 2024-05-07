@@ -125,16 +125,8 @@ r
 Bsrc/main/java/jakarta/error/mappers/InvalidKeyExceptionMapper.java,4\7\47edcb03f1120f8b26817dbaf1024b51f5a14f83
 `
 0httpTests/login/refresh_token_with_rotation.http,5\d\5d3df52e1967551c132dabdbca233dd260f10307
-V
-&src/main/java/domain/dto/LoginDTO.java,3\5\356bd2e8b7e1518e185d3bb0ea88dfc0e08718b8
-Y
-)src/main/java/domain/dto/RegisterDTO.java,0\3\036cf2e86d784e7c70a721c1958cfe4a251da977
-d
-4src/main/java/domain/usecases/driver/SaveDriver.java,7\b\7b7a217d74545324ade9696dfb1d200658c4c375
 f
 6src/main/java/domain/usecases/driver/UpdateDriver.java,f\0\f0bf4676e26033bbccae6abe81140f1f34e888a4
-h
-8src/main/java/domain/usecases/driver/RegisterDriver.java,5\f\5fa4abcd6db06142bddd998f5e4fb87eafe1799e
 n
 >src/main/java/domain/usecases/credentials/RegisterAccount.java,c\5\c57c9d63f8b1fd0330b716b2130ed7be06b44f35
 V
@@ -163,3 +155,5 @@ n
 >src/main/java/domain/usecases/credentials/LoginAndGetRole.java,e\9\e97cda4b9e0136f9714a29bd2f0254991ae3f7f8
 Y
 )src/main/java/jakarta/model/LoginDTO.java,2\3\2396065f4c0bd94a2add30fb4fb2d9e23b96a178
+]
+-src/main/java/jakarta/model/RefreshToken.java,5\2\52e4ed98210b49d8bdf75cb3deebbb20bf28def5

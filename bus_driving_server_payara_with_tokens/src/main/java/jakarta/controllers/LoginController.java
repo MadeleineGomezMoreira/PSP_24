@@ -1,14 +1,17 @@
 package jakarta.controllers;
 
 import common.Constants;
-import jakarta.model.LoginDTO;
 import domain.usecases.credentials.LoginAndGetRole;
 import jakarta.di.TokenGenerator;
 import jakarta.inject.Inject;
+import jakarta.model.LoginDTO;
+import jakarta.model.RefreshToken;
 import jakarta.model.TokenPair;
 import jakarta.model.mappers.JakartaDataMappers;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -38,10 +41,8 @@ public class LoginController {
 
         TokenPair tokenPair = tokenGenerator.generateTokens(username, role);
 
-        //we will return the tokens in different headers
-        return Response.ok()
-                .header(Constants.AUTHORIZATION, Constants.BEARER + tokenPair.getAccessToken())
-                .header(Constants.REFRESH_TOKEN, tokenPair.getRefreshToken())
+        //we will return the tokens as JSON
+        return Response.ok(tokenPair)
                 .build();
     }
 
@@ -56,13 +57,11 @@ public class LoginController {
     @POST
     @Path(Constants.REFRESH_TOKEN_PATH)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response refreshToken(@HeaderParam(HttpHeaders.AUTHORIZATION) String refreshToken) {
-        //we will return both a new access token and a new refresh token
-        TokenPair tokenPair = tokenGenerator.refreshTokens(refreshToken);
+    public Response refreshToken(RefreshToken refreshToken) {
+        //we will return both a new access token and a new refresh token generated from the old refresh token
+        TokenPair tokenPair = tokenGenerator.refreshTokens(refreshToken.getToken());
 
-        return Response.ok()
-                .header(Constants.AUTHORIZATION, Constants.BEARER + tokenPair.getAccessToken())
-                .header(Constants.REFRESH_TOKEN, tokenPair.getRefreshToken())
+        return Response.ok(tokenPair)
                 .build();
     }
 }

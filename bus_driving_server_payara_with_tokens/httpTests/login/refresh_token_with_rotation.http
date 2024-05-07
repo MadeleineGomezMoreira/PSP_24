@@ -10,23 +10,26 @@ Content-Type: application/json
   "password": "{{activatedDriverPassword}}"
 }
 > {%
-    client.global.set("access_token", response.headers.valueOf("Authorization"));
-    client.global.set("refresh_token", response.headers.valueOf("Refresh"));
+    client.global.set("access_token", response.body.accessToken);
+    client.global.set("refresh_token", response.body.refreshToken);
 %}
 
 ###
 # @name refreshToken
 POST {{urlBase}}/refresh
 Content-Type: application/json
-Authorization: {{refresh_token}}
+
+{
+  "token": "{{refresh_token}}"
+}
 
 > {%
-    client.global.set("new_access_token", response.headers.valueOf("Authorization"));
-    client.global.set("new_refresh_token", response.headers.valueOf("Refresh"));
+    client.global.set("new_access_token", response.body.accessToken);
+    client.global.set("new_refresh_token", response.body.refreshToken);
 %}
 
 ###
 # @name getAllStops
 GET {{urlBase}}/stops
-Authorization: {{new_access_token}}
+Authorization: Bearer {{new_access_token}}
 

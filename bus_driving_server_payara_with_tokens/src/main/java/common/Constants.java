@@ -40,7 +40,7 @@ public class Constants {
 
     //ERROR MESSAGES
     public static final String VALIDATION_FAILED_ERROR = "Validation failed. Please provide all required fields.";
-    public static final String CREDENTIAL_VALIDATION_FAILED_ERROR = "Credential validation failed on credential: .";
+    public static final String CREDENTIAL_VALIDATION_FAILED_ERROR = "Credential validation failed on credential: ";
     public static final String USER_NOT_LOGGED_IN_ERROR = "User not logged in. Please log in to access this resource.";
     public static final String ACCESS_DENIED_ONLY_ADMIN = "Only administrators have access to this resource.";
     public static final String ACCESS_DENIED_ONLY_USER = "Only logged users have access to this resource.";

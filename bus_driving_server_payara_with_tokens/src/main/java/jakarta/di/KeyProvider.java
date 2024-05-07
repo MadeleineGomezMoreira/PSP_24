@@ -17,17 +17,10 @@ import java.security.NoSuchAlgorithmException;
 
 public class KeyProvider {
 
-    private final ConfigSettings config;
-
-    @Inject
-    public KeyProvider(ConfigSettings config) {
-        this.config = config;
-    }
-
     @Produces
     @Singleton
     @Named(Constants.JWT)
-    public SecretKey key() {
+    public SecretKey key(ConfigSettings config) {
         try {
             final MessageDigest digest =
                     MessageDigest.getInstance(Constants.SHA_512_ALGORITHM);

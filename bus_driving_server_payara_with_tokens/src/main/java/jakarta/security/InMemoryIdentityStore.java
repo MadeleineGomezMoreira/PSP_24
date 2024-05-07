@@ -1,25 +1,20 @@
 package jakarta.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import common.Constants;
 import domain.dto.CredentialVerificationDTO;
 import domain.exception.CredentialValidationFailedException;
 import domain.exception.TokenExpiredException;
-import domain.model.AccountRole;
-import domain.usecases.driver.VerifyDriverRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import jakarta.di.KeyProvider;
+import jakarta.di.TokenGenerator;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.credential.Credential;
 import jakarta.security.enterprise.credential.RememberMeCredential;
 import jakarta.security.enterprise.identitystore.CredentialValidationResult;
 import jakarta.security.enterprise.identitystore.IdentityStore;
 
-import java.nio.charset.StandardCharsets;
+import javax.crypto.SecretKey;
 import java.util.Collections;
 
 import static jakarta.security.enterprise.identitystore.CredentialValidationResult.INVALID_RESULT;
@@ -32,14 +27,16 @@ public class InMemoryIdentityStore implements IdentityStore {
         return 10;
     }
 
-    private final KeyProvider keyProvider;
-    private final VerifyDriverRole verify;
+    private final SecretKey key;
+    private final TokenGenerator tokenGenerator;
 
     @Inject
-    public InMemoryIdentityStore(KeyProvider keyProvider, VerifyDriverRole verify) {
-        this.keyProvider = keyProvider;
-        this.verify = verify;
+    public InMemoryIdentityStore(SecretKey key, TokenGenerator tokenGenerator) {
+        this.key = key;
+        this.tokenGenerator = tokenGenerator;
     }
+
+    //TODO: hacer algo aquí para que se lancen excepciones en el propio método sin recogerlas (no se mappean aqui con jaxrs)
 
     @Override
     public CredentialValidationResult validate(Credential credential) {
@@ -49,23 +46,13 @@ public class InMemoryIdentityStore implements IdentityStore {
             String authToken = jwt.getToken();
 
             try {
-                Jws<Claims> jws = Jwts.parser()
-                        .verifyWith(keyProvider.key())
-                        .build()
-                        .parseSignedClaims(authToken);
+                Jws<Claims> jws = tokenGenerator.validateToken(authToken);
 
                 String username = jws.getPayload().getSubject();
-                String roleEncoded = jws.getPayload().get(Constants.ROLE_LOWER_CASE, String.class);
-
-                // Decode the role from Base64
-                byte[] bytes = Decoders.BASE64.decode(roleEncoded);
-                String role = new String(bytes, StandardCharsets.UTF_8);
+                String role = jws.getPayload().get(Constants.ROLE_LOWER_CASE, String.class);
 
                 CredentialVerificationDTO tokenCredential = new CredentialVerificationDTO(username, role);
 
-                //verify user's role
-                verify.verifyRole(tokenCredential);
-                //if there are no exceptions, we will return the CredentialValidationResult with the role
                 return new CredentialValidationResult(Constants.ROLE_LOWER_CASE, Collections.singleton(tokenCredential.getRole()));
 
             } catch (ExpiredJwtException e) {
