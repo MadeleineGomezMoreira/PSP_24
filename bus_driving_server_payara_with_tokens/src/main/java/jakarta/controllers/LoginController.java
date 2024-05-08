@@ -51,6 +51,7 @@ public class LoginController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response logOff() {
         //we cannot invalidate tokens as they are self-contained and the client must get rid of them
+        //we could blacklist them, but that would require a fast (non-relational) database (like Redis)
         return Response.ok().entity(Constants.LOGGING_OFF_WAS_SUCCESSFUL).build();
     }
 

@@ -1,6 +1,7 @@
 package jakarta.security;
 
 import common.Constants;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationStatus;
 import jakarta.security.enterprise.authentication.mechanism.http.HttpAuthenticationMechanism;
@@ -33,15 +34,16 @@ public class JWTAuth implements HttpAuthenticationMechanism {
         if (header != null) {
             String[] values = header.split(Constants.BLANK_SPACE);
 
-            if (values[0].equalsIgnoreCase(Constants.BEARER_NO_SPACE)) {
-
-                c = identity.validate(new RememberMeCredential(values[1]));
-
-            } else if (values[0].equalsIgnoreCase(Constants.LOGOUT)) {
-                c = CredentialValidationResult.NOT_VALIDATED_RESULT;
+            if (values[0].equalsIgnoreCase(Constants.BEARER)) {
+                try {
+                    c = identity.validate(new RememberMeCredential(values[1]));
+                } catch (ExpiredJwtException e) { //if the token is expired, we return an invalid result and a 401 status code
+                    return httpMessageContext.responseUnauthorized();
+                } catch (Exception e) {
+                    c = CredentialValidationResult.NOT_VALIDATED_RESULT;
+                }
             }
         }
-
         return httpMessageContext.notifyContainerAboutLogin(c);
     }
 }

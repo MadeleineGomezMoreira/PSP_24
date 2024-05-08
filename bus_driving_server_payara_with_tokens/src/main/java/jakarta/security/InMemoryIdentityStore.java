@@ -3,6 +3,7 @@ package jakarta.security;
 import common.Constants;
 import domain.dto.CredentialVerificationDTO;
 import domain.exception.CredentialValidationFailedException;
+import domain.exception.InvalidTokenException;
 import domain.exception.TokenExpiredException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -36,16 +37,12 @@ public class InMemoryIdentityStore implements IdentityStore {
         this.tokenGenerator = tokenGenerator;
     }
 
-    //TODO: hacer algo aquí para que se lancen excepciones en el propio método sin recogerlas (no se mappean aqui con jaxrs)
-
     @Override
-    public CredentialValidationResult validate(Credential credential) {
+    public CredentialValidationResult validate(Credential credential) throws ExpiredJwtException {
 
         if (credential instanceof RememberMeCredential jwt) {
 
             String authToken = jwt.getToken();
-
-            try {
                 Jws<Claims> jws = tokenGenerator.validateToken(authToken);
 
                 String username = jws.getPayload().getSubject();
@@ -54,16 +51,8 @@ public class InMemoryIdentityStore implements IdentityStore {
                 CredentialVerificationDTO tokenCredential = new CredentialVerificationDTO(username, role);
 
                 return new CredentialValidationResult(Constants.ROLE_LOWER_CASE, Collections.singleton(tokenCredential.getRole()));
-
-            } catch (ExpiredJwtException e) {
-                throw new TokenExpiredException(Constants.TOKEN_EXPIRED);
-            } catch (ClassCastException e) {
-                throw new CredentialValidationFailedException(Constants.CREDENTIAL_VALIDATION_FAILED_ERROR + credential);
-            } catch (Exception e) {
-                return INVALID_RESULT;
-            }
         } else {
-            throw new CredentialValidationFailedException(Constants.CREDENTIAL_VALIDATION_FAILED_ERROR + credential);
+            return INVALID_RESULT;
         }
     }
 }

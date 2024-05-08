@@ -4,6 +4,7 @@ import common.Constants;
 import domain.exception.InvalidTokenException;
 import domain.exception.TokenExpiredException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import jakarta.inject.Inject;
@@ -56,13 +57,9 @@ public class TokenGenerator {
         throw new TokenExpiredException(Constants.TOKEN_EXPIRED);
     }
 
-    public Jws<Claims> validateToken(String refreshToken) {
-        try {
+    public Jws<Claims> validateToken(String refreshToken) throws ExpiredJwtException {
             //here I'll verify the token's signature
             return Jwts.parser().verifyWith(key).build().parseSignedClaims(refreshToken);
-        } catch (Exception e) {
-            throw new InvalidTokenException(Constants.INVALID_TOKEN);
-        }
     }
 
     private String generateAccessToken(String username, String role, SecretKey key) {

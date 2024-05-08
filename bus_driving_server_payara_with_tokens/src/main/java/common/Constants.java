@@ -87,14 +87,13 @@ public class Constants {
     //TOKEN STRINGS
     public static final String ROLE_LOWER_CASE = "role";
     public static final String USER_LOWER_CASE = "user";
-    public static final String BEARER = "Bearer ";
-    public static final String BEARER_NO_SPACE = "Bearer";
+    public static final String BEARER = "Bearer";
     public static final String AUTHORIZATION = "Authorization";
     public static final String REFRESH_TOKEN = "Refresh";
     public static final String LOGOUT = "Logout";
     public static final String JWT = "JWT";
-    public static final int ACCESS_TOKEN_EXPIRATION_SECONDS = 300;
-    public static final int REFRESH_TOKEN_EXPIRATION_SECONDS = 10000;
+    public static final int ACCESS_TOKEN_EXPIRATION_SECONDS = 300; //5 minutes
+    public static final int REFRESH_TOKEN_EXPIRATION_SECONDS = 259200; //3 days
 
     //KEY PROVIDER CONSTANTS
     public static final String SHA_512_ALGORITHM = "SHA-512";
