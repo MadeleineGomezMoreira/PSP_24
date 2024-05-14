@@ -9,6 +9,7 @@ public class QueryStrings {
     //TODO: poner esto como un inner join
     public static final String GET_ALL_DRIVERS_WITH_LINES = "SELECT d.*, l.* FROM bus_driver d JOIN bus_line l ON d.assigned_bus_line = l.id_bus_line";
     public static final String GET_DRIVER_BY_ID_WITH_BUS_LINE = "SELECT * FROM bus_driver d JOIN bus_line l ON d.assigned_bus_line = l.id_bus_line where id_bus_driver = ?";
+    public static final String GET_DRIVER_ASSIGNED_BUS_LINE_BY_DRIVER_ID = "SELECT assigned_bus_line FROM bus_driver where id_bus_driver = ?";
     public static final String GET_DRIVER_ID_BY_USERNAME = "SELECT bd.id_bus_driver FROM bus_driver bd JOIN driver_credentials dc ON bd.id_bus_driver = dc.credential_id WHERE dc.username = ?";
     public static final String INSERT_DRIVER = "INSERT INTO bus_driver (driver_first_name, driver_last_name, driver_phone, driver_email, assigned_bus_line) VALUES (?, ?, ?, ?, ?)";
     public static final String UPDATE_DRIVER = "UPDATE bus_driver SET driver_first_name = ?, driver_last_name = ?, driver_phone = ?, assigned_bus_line = ? WHERE id_bus_driver = ?";

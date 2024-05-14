@@ -73,6 +73,28 @@ public class DaoDriversImpl implements DaoDrivers {
     }
 
     @Override
+    public Integer getAssignedLineId(BusDriver driver) {
+        Integer result = null;
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            int id = driver.getId();
+            List<Integer> assignedLineId = jdbcTemplate.query(QueryStrings.GET_DRIVER_ASSIGNED_BUS_LINE_BY_DRIVER_ID, new SingleColumnRowMapper<>(), id);
+            if (assignedLineId.isEmpty()) {
+                throw new NotFoundException(Constants.DATA_RETRIEVAL_ERROR_NOT_FOUND);
+            } else {
+                result = assignedLineId.get(0);
+            }
+        } catch (EmptyResultDataAccessException e) {
+            throw new NotFoundException(Constants.DATA_RETRIEVAL_ERROR_NOT_FOUND);
+        } catch (DataAccessException e) {
+            if (e.getCause() instanceof SQLException) {
+                throw new ConnectionFailedException(Constants.CONNECTION_TO_DATABASE_FAILED);
+            }
+        }
+        return result;
+    }
+
+    @Override
     public Integer getId(BusDriver driver) {
         int driverId = -1;
         try {

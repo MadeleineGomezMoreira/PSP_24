@@ -6,8 +6,8 @@ POST {{urlBase}}/login
 Content-Type: application/json
 
 {
-  "username": "{{activatedDriverUsername}}",
-  "password": "{{activatedDriverPassword}}"
+  "username": "u15",
+  "password": "p15"
 }
 > {%
     client.global.set("access_token", response.body.accessToken);

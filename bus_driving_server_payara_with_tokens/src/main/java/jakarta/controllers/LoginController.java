@@ -2,9 +2,11 @@ package jakarta.controllers;
 
 import common.Constants;
 import domain.usecases.credentials.LoginAndGetRole;
+import domain.usecases.driver.GetDriverIdByUsername;
 import jakarta.di.TokenGenerator;
 import jakarta.inject.Inject;
 import jakarta.model.LoginDTO;
+import jakarta.model.LoginData;
 import jakarta.model.RefreshToken;
 import jakarta.model.TokenPair;
 import jakarta.model.mappers.JakartaDataMappers;
@@ -23,13 +25,15 @@ public class LoginController {
     private final LoginAndGetRole loginAndGetRole;
     private final TokenGenerator tokenGenerator;
     private final JakartaDataMappers dataMappers;
+    private final GetDriverIdByUsername getDriverIdByUsername;
 
 
     @Inject
-    public LoginController(LoginAndGetRole loginAndGetRole, TokenGenerator tokenGenerator, JakartaDataMappers dataMappers) {
+    public LoginController(LoginAndGetRole loginAndGetRole, TokenGenerator tokenGenerator, JakartaDataMappers dataMappers, GetDriverIdByUsername getDriverIdByUsername) {
         this.loginAndGetRole = loginAndGetRole;
         this.tokenGenerator = tokenGenerator;
         this.dataMappers = dataMappers;
+        this.getDriverIdByUsername = getDriverIdByUsername;
     }
 
     @POST
@@ -40,9 +44,12 @@ public class LoginController {
         String username = credential.getUsername();
 
         TokenPair tokenPair = tokenGenerator.generateTokens(username, role);
+        int userId = getDriverIdByUsername.getDriverIdByUsername(username);
+
+        LoginData loginData = new LoginData(userId, tokenPair);
 
         //we will return the tokens as JSON
-        return Response.ok(tokenPair)
+        return Response.ok(loginData)
                 .build();
     }
 
@@ -61,7 +68,6 @@ public class LoginController {
     public Response refreshToken(RefreshToken refreshToken) {
         //we will return both a new access token and a new refresh token generated from the old refresh token
         TokenPair tokenPair = tokenGenerator.refreshTokens(refreshToken.getToken());
-
         return Response.ok(tokenPair)
                 .build();
     }

@@ -10,5 +10,4 @@ import jakarta.ws.rs.core.Application;
 @ApplicationPath(Constants.APP_PATH)
 @DeclareRoles({Constants.ADMIN, Constants.USER})
 public class BusApplication extends Application {
-
 }

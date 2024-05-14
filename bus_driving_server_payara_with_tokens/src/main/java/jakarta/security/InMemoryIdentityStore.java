@@ -17,6 +17,7 @@ import jakarta.security.enterprise.identitystore.IdentityStore;
 
 import javax.crypto.SecretKey;
 import java.util.Collections;
+import java.util.Set;
 
 import static jakarta.security.enterprise.identitystore.CredentialValidationResult.INVALID_RESULT;
 
@@ -48,9 +49,8 @@ public class InMemoryIdentityStore implements IdentityStore {
                 String username = jws.getPayload().getSubject();
                 String role = jws.getPayload().get(Constants.ROLE_LOWER_CASE, String.class);
 
-                CredentialVerificationDTO tokenCredential = new CredentialVerificationDTO(username, role);
-
-                return new CredentialValidationResult(Constants.ROLE_LOWER_CASE, Collections.singleton(tokenCredential.getRole()));
+                //aquí pongo el username y el rol (para que me lo cargue en el principal y pueda mirar lo de RolesAllowed)
+                return new CredentialValidationResult(username, Set.of(role));
         } else {
             return INVALID_RESULT;
         }

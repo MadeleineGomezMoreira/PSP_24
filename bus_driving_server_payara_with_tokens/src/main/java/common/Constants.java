@@ -65,6 +65,7 @@ public class Constants {
     public static final String INSERT_FAILED_EXCEPTION = "There was an error while inserting the data into the database.";
     public static final String UNIQUE_FIELD_CONSTRAINT_ERROR = "This username or email address is taken. Please choose another one.";
     public static final String INTERNAL_SERVER_ERROR = "Internal server error. Please try again later.";
+    public static final String UNAUTHORIZED_ACCESS_ERROR = "Unauthorized access. You have no permission to access this resource.";
     public static final String AUTHENTICATION_FAILED_EMAIL_ERROR = "Authentication failed. No user found with this email.";
     public static final String TOKEN_EXPIRED = "The session has expired. Please log in again.";
     public static final String INVALID_TOKEN = "Invalid refresh token. Please log in again.";

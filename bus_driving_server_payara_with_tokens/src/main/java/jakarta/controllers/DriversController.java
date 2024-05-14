@@ -33,7 +33,7 @@ public class DriversController {
     }
 
     @GET
-    @RolesAllowed({Constants.ADMIN, Constants.USER})
+    @RolesAllowed({Constants.ADMIN})
     @Produces(MediaType.APPLICATION_JSON)
     public List<BusDriver> getAllDrivers() {
         return getAll.getAll();
