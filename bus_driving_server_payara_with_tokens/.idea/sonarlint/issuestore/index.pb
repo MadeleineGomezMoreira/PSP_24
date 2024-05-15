@@ -169,7 +169,5 @@ T
 $src/main/java/data/dao/DaoLines.java,9\4\94928b4b8f0c8be211481d41844b434ae13dce1f
 ]
 -src/main/java/data/dao/impl/DaoLinesImpl.java,1\1\11938076c3c0542363e5c29e350b159d51c3030b
-b
-2src/main/java/jakarta/model/mappers/LoginData.java,1\3\13cb9eb5f547c20fecdea5fdf1461fd535cd21eb
 Z
 *src/main/java/jakarta/model/LoginData.java,9\4\9410d6b249598877e1e0a11f9ec347cd4304d71f
