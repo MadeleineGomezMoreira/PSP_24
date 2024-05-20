@@ -171,3 +171,5 @@ $src/main/java/data/dao/DaoLines.java,9\4\94928b4b8f0c8be211481d41844b434ae13dc
 -src/main/java/data/dao/impl/DaoLinesImpl.java,1\1\11938076c3c0542363e5c29e350b159d51c3030b
 Z
 *src/main/java/jakarta/model/LoginData.java,9\4\9410d6b249598877e1e0a11f9ec347cd4304d71f
+a
+1src/main/java/data/dao/mappers/BusStopMapper.java,8\4\84e7dbcd238c079584dc5e91c0628dba5d612cb4

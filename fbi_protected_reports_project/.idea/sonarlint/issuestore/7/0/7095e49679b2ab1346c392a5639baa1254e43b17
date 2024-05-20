@@ -9,13 +9,3 @@ java:S1135 "2Complete the task associated to this TODO comment.(·³»šûÿÿÿÿ8àâØ¿
 J
 java:S14815"-Remove this unused "keyStore" local variable.(ĞÀ›Í8¼íƒê1
 L	java:S1068"+Replace this use of System.out by a logger.(’“¨²ùÿÿÿÿ8¼íƒê1
-\
-java:S1128":Remove this unused import 'javax.crypto.SecretKeyFactory'.(½Å™Øÿÿÿÿÿ8ÂœÆ¨ê1
-V
-java:S1128"9Remove this unused import 'javax.crypto.spec.PBEKeySpec'.(˜œ®ÿ8ÂœÆ¨ê1
-i
-java:S1128"GRemove this unused import 'java.security.spec.InvalidKeySpecException'.(ëóÅëüÿÿÿÿ8ÂœÆ¨ê1
-Y
-java:S1128"7Remove this unused import 'java.security.spec.KeySpec'.(Îàèµÿÿÿÿÿ8ÂœÆ¨ê1
-J
-java:S1128"-Remove this unused import 'java.util.Base64'.(ëŠ»Õ8ÂœÆ¨ê1

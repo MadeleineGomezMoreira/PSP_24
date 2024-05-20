@@ -1,0 +1,11 @@
+#bus_driving_server_payara_with_tokens
+
+###
+# @name loginUnactivatedDriver
+POST {{urlBase}}/login
+Content-Type: application/json
+
+{
+  "username": "{{unactivatedDriverUsername}}",
+  "password": "{{unactivatedDriverPassword}}"
+}

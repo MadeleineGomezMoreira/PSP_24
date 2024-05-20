@@ -1,0 +1,35 @@
+#bus_driving_server_payara_with_tokens
+
+###
+# @name loginActivatedDriver
+POST {{urlBase}}/login
+Content-Type: application/json
+
+{
+  "username": "{{activatedDriverUsername}}",
+  "password": "{{activatedDriverPassword}}"
+}
+> {%
+    client.global.set("access_token", response.body.accessToken);
+    client.global.set("refresh_token", response.body.refreshToken);
+%}
+
+###
+# @name refreshToken
+POST {{urlBase}}/refresh
+Content-Type: application/json
+
+{
+  "token": "{{refresh_token}}"
+}
+
+> {%
+    client.global.set("new_access_token", response.body.accessToken);
+    client.global.set("new_refresh_token", response.body.refreshToken);
+%}
+
+###
+# @name getAllStops
+GET {{urlBase}}/stops
+Authorization: Bearer {{new_access_token}}
+

@@ -1,0 +1,21 @@
+#bus_driving_server_payara_with_tokens
+
+###
+# @name loginActivatedDriver
+POST {{urlBase}}/login
+Content-Type: application/json
+
+{
+  "username": "u15",
+  "password": "p15"
+}
+> {%
+    client.global.set("access_token", response.body.accessToken);
+    client.global.set("refresh_token", response.body.refreshToken);
+%}
+
+###
+# @name getLine
+GET {{urlBase}}/lines/100
+Authorization: Bearer {{access_token}}
+

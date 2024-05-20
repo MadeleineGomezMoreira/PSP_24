@@ -1,0 +1,8 @@
+dbUrl: jdbc:mysql://dam2.mysql.iesquevedo.es:3335/madegomez_PSP?useSSL=false
+dbUser: root
+dbPassword: quevedo2dam
+dbDriver: com.mysql.cj.jdbc.Driver
+emailHost: smtp.gmail.com
+emailUser: alumnosdamquevedo@gmail.com
+emailPassword: uyhqfbbfmszvuykt
+secretKey: clave

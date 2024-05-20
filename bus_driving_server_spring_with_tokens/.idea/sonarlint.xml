@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SonarLintProjectSettings">
+    <option name="moduleMapping">
+      <map>
+        <entry key="bus_driving_server_spring_with_tokens" value="bus_driving_server_payara_with_tokens" />
+      </map>
+    </option>
+  </component>
+</project>
