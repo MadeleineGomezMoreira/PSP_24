@@ -2,7 +2,7 @@
 
 ###
 # @name register
-POST {{urlBase}}/register
+POST {{urlBase}}register
 Content-Type: application/json
 
 {
@@ -10,6 +10,6 @@ Content-Type: application/json
   "lastName": "Delgado",
   "phone": "627389512",
   "username": "u1",
-  "password": "p1",
+  "password": "1234",
   "email": "eDelgado99@gmail.com"
 }

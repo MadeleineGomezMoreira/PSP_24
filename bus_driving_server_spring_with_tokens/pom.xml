@@ -30,22 +30,22 @@
             <version>1.18.32</version>
         </dependency>
         <!-- LOG4J LOGGING -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>3.0.0-beta1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>3.0.0-beta1</version>
-        </dependency>
-        <!-- VAVR (EITHER) -->
-        <dependency>
-            <groupId>io.vavr</groupId>
-            <artifactId>vavr</artifactId>
-            <version>1.0.0-alpha-4</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.logging.log4j</groupId>-->
+<!--            <artifactId>log4j-core</artifactId>-->
+<!--            <version>3.0.0-beta1</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.logging.log4j</groupId>-->
+<!--            <artifactId>log4j-api</artifactId>-->
+<!--            <version>3.0.0-beta1</version>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; VAVR (EITHER) &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>io.vavr</groupId>-->
+<!--            <artifactId>vavr</artifactId>-->
+<!--            <version>1.0.0-alpha-4</version>-->
+<!--        </dependency>-->
         <!-- JSON WEB-TOKEN -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -74,12 +74,12 @@
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
-        <!-- WELD DEPENDENCY INJECTION -->
-        <dependency>
-            <groupId>org.jboss.weld.se</groupId>
-            <artifactId>weld-se-core</artifactId>
-            <version>5.1.2.Final</version>
-        </dependency>
+<!--        &lt;!&ndash; WELD DEPENDENCY INJECTION &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.jboss.weld.se</groupId>-->
+<!--            <artifactId>weld-se-core</artifactId>-->
+<!--            <version>5.1.2.Final</version>-->
+<!--        </dependency>-->
         <!-- YAML -->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -132,7 +132,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
-            <version>3.1.5</version>
+            <version>3.3.0</version>
         </dependency>
         <!--INITIALIZE KEYSTORE-->
         <!-- BOUNCY-CASTLE-ENCRYPTION -->
@@ -146,13 +146,6 @@
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk18on</artifactId>
             <version>1.78</version>
-        </dependency>
-        <!-- JAKARTA EE API (we keep this because we need Jakarta.mail/passwordHash) -->
-        <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>11.0.0-M2</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 

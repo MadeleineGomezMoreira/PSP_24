@@ -1,6 +1,7 @@
 package com.example.server.data.model;
 
 import com.example.server.domain.model.AccountRole;
+import com.example.server.domain.model.BusDriver;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,4 +37,10 @@ public class DriverCredentialEntity {
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     private AccountRoleEntity role;
 
+    @OneToOne(mappedBy = "credential", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY, optional = false)
+    private BusDriverEntity driver;
+
+    public DriverCredentialEntity(int id) {
+        this.id = id;
+    }
 }

@@ -1,7 +1,5 @@
 package com.example.server.data.model;
 
-import com.example.server.domain.model.BusLine;
-import com.example.server.domain.model.DriverCredential;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,20 +13,28 @@ import lombok.*;
 public class BusDriverEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_bus_driver", nullable = false)
     private int id;
-    @Column(name = "first_name")
+    @Column(name = "driver_first_name")
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "driver_last_name")
     private String lastName;
-    @Column(name = "phone")
+    @Column(name = "driver_phone")
     private String phone;
     @ManyToOne
     @JoinColumn(name = "assigned_bus_line", referencedColumnName = "id_bus_line")
     private BusLineEntity assignedLine;
     @OneToOne
-    @JoinColumn(name = "credential_id", referencedColumnName = "credential_id")
+    @MapsId
+    @JoinColumn(name = "id_bus_driver")
     private DriverCredentialEntity credential;
 
+    public BusDriverEntity(int id, String firstName, String lastName, String phone, BusLineEntity assignedLine) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.assignedLine = assignedLine;
+    }
 }

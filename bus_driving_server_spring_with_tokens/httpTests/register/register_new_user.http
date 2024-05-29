@@ -2,14 +2,14 @@
 
 ###
 # @name register
-POST {{urlBase}}/register
+POST {{urlBase}}register
 Content-Type: application/json
 
 {
-  "firstName": "Marcos",
-  "lastName": "Vazquez",
-  "phone": "623382826",
-  "username": "marcos",
-  "password": "passwordVazquez22",
+  "firstName": "Sara",
+  "lastName": "Jimenez",
+  "phone": "632338256",
+  "username": "bbbb",
+  "password": "1234",
   "email": "tosigether598@gmail.com"
 }

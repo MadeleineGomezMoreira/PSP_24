@@ -23,21 +23,25 @@ public class KeyProviders {
     @Value("${keystore.alias}")
     private String keyStoreAlias;
 
+    @Value("${private.key.alias}")
+    private String privateKeyAlias;
+
     @Bean(name = "getPublicKey")
-    public PublicKey getPublicKey(KeyStore keys) throws KeyStoreException {
-        X509Certificate certificate = (X509Certificate) keys.getCertificate(keyStoreAlias);
+    public PublicKey getPublicKey() throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException {
+        KeyStore keystore = getKeyStore();
+
+        X509Certificate certificate = (X509Certificate) keystore.getCertificate(keyStoreAlias);
         return certificate.getPublicKey();
     }
 
     @Bean(name = "getPrivateKey")
-    public PrivateKey getPrivateKey(KeyStore keys) throws KeyStoreException, UnrecoverableEntryException, NoSuchAlgorithmException {
+    public PrivateKey getPrivateKey() throws KeyStoreException, UnrecoverableEntryException, NoSuchAlgorithmException, CertificateException, IOException {
+        KeyStore keystore = getKeyStore();
         KeyStore.PasswordProtection passwordProtection = new KeyStore.PasswordProtection(keystorePass.toCharArray());
-        KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keys.getEntry(keyStoreAlias, passwordProtection);
+        KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keystore.getEntry(privateKeyAlias, passwordProtection);
         return privateKeyEntry.getPrivateKey();
     }
 
-    //this method cannot be private cause if not Spring cannot manage it as a Bean
-    @Bean
     public KeyStore getKeyStore() throws KeyStoreException, IOException, CertificateException, NoSuchAlgorithmException {
         KeyStore ksLoad = KeyStore.getInstance(Constants.KEYSTORE_TYPE);
         ksLoad.load(new FileInputStream(keystorePath), keystorePass.toCharArray());

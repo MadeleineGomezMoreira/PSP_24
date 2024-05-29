@@ -2,16 +2,16 @@
 
 ###
 # @name loginActivatedDriver
-POST {{urlBase}}/login
+POST {{urlBase}}auth/login
 Content-Type: application/json
 
 {
-  "username": "u15",
-  "password": "p15"
+  "username": "{{activatedDriverUsername}}",
+  "password": "{{activatedDriverPassword}}"
 }
 > {%
-    client.global.set("access_token", response.body.accessToken);
-    client.global.set("refresh_token", response.body.refreshToken);
+    client.global.set("access_token", response.body.tokenPair.accessToken);
+    client.global.set("refresh_token", response.body.tokenPair.refreshToken);
 %}
 
 ###

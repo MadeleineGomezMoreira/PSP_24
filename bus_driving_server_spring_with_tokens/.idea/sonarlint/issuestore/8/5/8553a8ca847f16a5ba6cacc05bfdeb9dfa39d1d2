@@ -1,10 +1,0 @@
-
-§
-java:S1488"cImmediately return this expression instead of assigning it to the temporary variable "certificate".(Ãê€õ8Èî¡‚ù1J$c34fdf07-a426-4615-9289-534e4d768d8b
-
-java:S18544"<Remove this useless assignment to local variable "keyStore".(ĞÀ›Í8†ï¡‚ù1J$06577976-a451-4afa-b6f4-b2b385c93807
-p
-java:S14814"-Remove this unused "keyStore" local variable.(ĞÀ›Í8”ï¡‚ù1J$c288e8fa-b49a-42df-a2b7-10fc2dc9f46c
-r	java:S1067"+Replace this use of System.out by a logger.(’“¨²ùÿÿÿÿ8–ï¡‚ù1J$8bfc41ea-e6a9-4655-839e-0b9e91808b96
-
-java:S1128"ERemove this unused import 'org.springframework.stereotype.Component'.(Ş÷Ñ¸ÿÿÿÿÿ8ûŒÂ‚ù1J$50adde6e-b416-410a-a5dd-04719f2e9d21

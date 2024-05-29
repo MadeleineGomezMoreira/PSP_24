@@ -6,11 +6,16 @@ public class Constants {
     }
 
     //PATH STRINGS
+    public static final String LOGIN_CONTROLLER_PATH = "/auth";
     public static final String ACTIVATE_PATH = "/activate";
     public static final String RESEND_CODE_PATH = "/resend-code";
     public static final String REGISTER_PATH = "/register";
     public static final String DRIVERS_PATH = "/drivers";
+    public static final String DRIVER_BY_ID_PATH = "/driver";
+    public static final String DRIVER_ID_BY_USERNAME_PATH = "/driver-id";
+    public static final String UPDATE_DRIVER_PATH = "/update-driver";
     public static final String ID_PARAM_PATH = "/{id}";
+    public static final String USERNAME_PARAM_PATH = "/{username}";
     public static final String GET_DRIVER_ID_BY_USERNAME_PATH = "/username/{username}";
     public static final String DELETE_DRIVER_PATH = "/delete/{id}";
     public static final String LINES_PATH = "/lines";
@@ -36,7 +41,7 @@ public class Constants {
     public static final String LOGGING_OFF_WAS_SUCCESSFUL = "Logged out successfully.";
 
     //LINK PATHS
-    public static final String ACTIVATE_ACCOUNT_LINK = "http://http://localhost:8085/bus_driving_server_spring_with_tokens-1.0-SNAPSHOT/api/activate?";
+    public static final String ACTIVATE_ACCOUNT_LINK = "http://http://localhost:8085/activate?";
 
     //ERROR MESSAGES
     public static final String VALIDATION_FAILED_ERROR = "Validation failed. Please provide all required fields.";
@@ -46,6 +51,7 @@ public class Constants {
     public static final String ACCESS_DENIED_ONLY_USER = "Only logged users have access to this resource.";
     public static final String ACCESS_DENIED_INCORRECT_ROLE = "You have no permission to access this resource.";
     public static final String FAILED_TO_SEND_EMAIL_ERROR = "Failed to send email. Please try again later.";
+    public static final String USER_NOT_FOUND_WITH_EMAIL_ERROR = "A user with the provided email was not found";
     public static final String DATA_RETRIEVAL_ERROR_NOT_FOUND = "The data was not found";
     public static final String DATA_RETRIEVAL_ERROR_EMPTY_DATA_SOURCE = "The data was not found";
     public static final String INVALID_DATA_FORMAT_ERROR = "Invalid data format";
@@ -69,6 +75,7 @@ public class Constants {
     public static final String AUTHENTICATION_FAILED_EMAIL_ERROR = "Authentication failed. No user found with this email.";
     public static final String TOKEN_EXPIRED = "The session has expired. Please log in again.";
     public static final String INVALID_REFRESH_TOKEN = "Invalid refresh token. Please log in again.";
+    public static final String EXPIRED_REFRESH_TOKEN = "Refresh token is expired. Please log in again.";
     public static final String INVALID_TOKEN = "Invalid token. Please log in again.";
     public static final String INVALID_KEY = "Invalid key. Please try again.";
 
@@ -92,6 +99,7 @@ public class Constants {
     //TOKEN STRINGS
     public static final String ROLE_LOWER_CASE = "role";
     public static final String USER_LOWER_CASE = "user";
+    public static final String AUTHORITIES_LOWER_CASE = "authorities";
     public static final String BEARER = "Bearer";
     public static final String BEARER_WITH_SPACE = "Bearer ";
     public static final String AUTHORIZATION = "Authorization";
@@ -140,6 +148,12 @@ public class Constants {
 
     //DOMAIN STRINGS
     public static final String EMPTY_STRING = "";
+
+    //MAIL CONFIG STRINGS
+    public static final String MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol";
+    public static final String MAIL_STMP_AUTH = "mail.smtp.auth";
+    public static final String MAIL_STMP_STARTTLS = "mail.smtp.starttls.enable";
+    public static final String MAIL_DEBUG = "mail.debug";
 
 
 }

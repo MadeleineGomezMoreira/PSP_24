@@ -1,26 +1,26 @@
 package com.example.server.domain.usecases.credentials;
 
-import com.example.server.data.dao.DaoCredentials;
-import com.example.server.domain.model.DriverCredential;
-import jakarta.inject.Inject;
+import com.example.server.common.Constants;
+import com.example.server.data.model.DriverCredentialEntity;
+import com.example.server.data.repositories.CredentialRepository;
+import com.example.server.domain.exception.NotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
+@RequiredArgsConstructor
 public class UpdateActivationCode {
 
-    private final DaoCredentials dao;
-
-    @Inject
-    public UpdateActivationCode(DaoCredentials dao) {
-        this.dao = dao;
-    }
+    private final CredentialRepository credentialRepository;
 
     public void updateActivationCode(String email, String activationCode) {
         //get the DriverCredential object
-        DriverCredential c = dao.getCredentialByEmail(new DriverCredential(email, null, null));
+        DriverCredentialEntity credential = credentialRepository.findByEmail(email).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND_WITH_EMAIL_ERROR));
         //update it
-        c.setActivationCode(activationCode);
-        c.setActivationDate(LocalDateTime.now());
-        dao.update(c);
+        credential.setActivationCode(activationCode);
+        credential.setActivationDate(LocalDateTime.now());
+        credentialRepository.save(credential);
     }
 }

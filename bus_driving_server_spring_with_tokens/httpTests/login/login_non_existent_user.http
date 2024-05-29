@@ -2,7 +2,7 @@
 
 ###
 # @name loginUnactivatedDriver
-POST {{urlBase}}/login
+POST {{urlBase}}auth/login
 Content-Type: application/json
 
 {

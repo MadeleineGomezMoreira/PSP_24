@@ -45,15 +45,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 Claims claims = jwtService.extractJwtClaims(values[1]);
 
-                String role = (String) claims.get(Constants.ROLE_LOWER_CASE);
-                String username = (String) claims.get(Constants.USERNAME_LOWER_CASE);
+                String authorities = (String) claims.get(Constants.AUTHORITIES_LOWER_CASE);
+                String username = claims.getSubject();
 
                 UserDetails userDetails = User.builder()
                         .username(username)
                         .password(Constants.EMPTY_STRING)
-                        //TODO: what should I keep here, the authorities or the roles?
-                        .roles(role)
-                        .authorities(role)
+                        .roles(authorities)
                         .build();
 
                 UsernamePasswordAuthenticationToken authenticationToken =
@@ -70,8 +68,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 throw new TokenInvalidException(Constants.INVALID_REFRESH_TOKEN);
             }
         }
-
     }
-
 
 }

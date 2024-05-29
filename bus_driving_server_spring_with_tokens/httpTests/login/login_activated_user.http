@@ -2,7 +2,7 @@
 
 ###
 # @name loginActivatedDriver
-POST {{urlBase}}/login
+POST {{urlBase}}auth/login
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
   "password": "{{activatedDriverPassword}}"
 }
 > {%
-    client.global.set("access_token", response.body.accessToken);
-    client.global.set("refresh_token", response.body.refreshToken);
+    client.global.set("access_token", response.body.tokenPair.accessToken);
+    client.global.set("refresh_token", response.body.tokenPair.refreshToken);
 %}
 

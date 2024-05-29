@@ -173,3 +173,5 @@ Z
 *src/main/java/jakarta/model/LoginData.java,9\4\9410d6b249598877e1e0a11f9ec347cd4304d71f
 a
 1src/main/java/data/dao/mappers/BusStopMapper.java,8\4\84e7dbcd238c079584dc5e91c0628dba5d612cb4
+Y
+)src/main/java/domain/model/BusDriver.java,6\d\6d8defc084bfafe9b9ffc54cc045a8731a3e66a6

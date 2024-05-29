@@ -18,4 +18,8 @@ public class AccountRoleEntity {
     private int roleId;
     @Column(name = "role_name")
     private String roleName;
+
+    public AccountRoleEntity(int roleId) {
+        this.roleId = roleId;
+    }
 }
