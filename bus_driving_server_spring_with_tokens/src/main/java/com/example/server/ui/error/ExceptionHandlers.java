@@ -1,9 +1,6 @@
 package com.example.server.ui.error;
 
-import com.example.server.domain.exception.InvalidTokenException;
-import com.example.server.domain.exception.MailMessagingException;
-import com.example.server.domain.exception.NotFoundException;
-import com.example.server.domain.exception.TokenInvalidException;
+import com.example.server.domain.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
@@ -52,5 +49,10 @@ public class ExceptionHandlers {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiError);
     }
 
+    @ExceptionHandler(AuthenticationFailedException.class)
+    public ResponseEntity<ApiError> handleValidationException(AuthenticationFailedException e) {
+        ApiError apiError = new ApiError(e.getMessage(), LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(apiError);
+    }
 
 }

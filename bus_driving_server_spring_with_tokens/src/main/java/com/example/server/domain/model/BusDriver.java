@@ -1,8 +1,13 @@
 package com.example.server.domain.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BusDriver {
 
     private int id;
@@ -12,13 +17,6 @@ public class BusDriver {
     private BusLine assignedLine;
     private DriverCredential credential;
 
-    public BusDriver() {
-    }
-
-    public BusDriver(String firstName) {
-        this.firstName = firstName;
-    }
-
     public BusDriver(int id, String firstName, String lastName, String phone, BusLine assignedLine) {
         this.id = id;
         this.firstName = firstName;
@@ -27,24 +25,4 @@ public class BusDriver {
         this.assignedLine = assignedLine;
     }
 
-    public BusDriver(String firstName, String lastName, String phone, BusLine assignedLine) {
-        this.id = 0;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-        this.assignedLine = assignedLine;
-    }
-
-    public BusDriver(String firstName, String lastName, String phone, BusLine assignedLine, DriverCredential credential) {
-        this.id = 0;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-        this.assignedLine = assignedLine;
-        this.credential = credential;
-    }
-
-    public BusDriver(int id) {
-        this.id = id;
-    }
 }

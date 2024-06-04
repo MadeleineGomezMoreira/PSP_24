@@ -15,10 +15,6 @@ public class BusStop {
     private Point location;
     private List<BusLine> busLines;
 
-    public BusStop(int id) {
-        this.id = id;
-    }
-
     public BusStop(int id, String name, Point location) {
         this.id = id;
         this.name = name;

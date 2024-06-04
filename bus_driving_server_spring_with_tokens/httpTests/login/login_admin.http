@@ -1,4 +1,4 @@
-#bus_driving_server_payara_with_tokens
+#bus_driving_server_spring_with_tokens
 
 # @name loginAdmin
 POST {{urlBase}}auth/login

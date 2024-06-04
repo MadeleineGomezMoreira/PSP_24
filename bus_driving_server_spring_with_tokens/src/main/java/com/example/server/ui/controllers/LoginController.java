@@ -17,7 +17,6 @@ public class LoginController {
 
     private final LoginUseCase loginUseCase;
     private final JwtService jwtService;
-    private final PasswordEncoder passwordEncoder;
 
     @PostMapping(Constants.LOGIN_CONTROLLER_PATH + Constants.LOGIN_PATH)
     public LoginOutputData login(@RequestBody LoginInputData login) {
